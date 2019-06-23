@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pages on GeeKoffee</title>
-    <link>https://geekoffee.ml/pages/</link>
-    <description>Recent content in Pages on GeeKoffee</description>
+    <title>Contents on GeeKoffee</title>
+    <link>https://geekoffee.ml/contents/</link>
+    <description>Recent content in Contents on GeeKoffee</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2019 Glauber Magalhaes.&amp;nbsp;&lt;a href=&#34;https://www.gnu.org/licenses/gpl-3.0.html&#34;&gt;Some rights reserved&lt;/a&gt;.</copyright>
     
-	<atom:link href="https://geekoffee.ml/pages/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://geekoffee.ml/contents/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
