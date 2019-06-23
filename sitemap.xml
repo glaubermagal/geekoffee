@@ -32,6 +32,10 @@
   </url>
   
   <url>
+    <loc>https://geekoffee.ml/about/</loc>
+  </url>
+  
+  <url>
     <loc>https://geekoffee.ml/categories/</loc>
     <priority>0</priority>
   </url>
