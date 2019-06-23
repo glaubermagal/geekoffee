@@ -5,8 +5,9 @@ author = "Glauber Magalhães"
 cover = ""
 tags = ["JavaScript"]
 slug = "handle-error-from-settimeout"
-description = "A tip about how to deal with setTimeout and try/catch block"
+description = "How to deal with setTimeout and try/catch block"
 showFullContent = false
+showComments = true
 +++
 
 This block of code does not work:

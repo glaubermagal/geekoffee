@@ -58,6 +58,8 @@
   </div>
   {{ end }}
 
+  {{ if .Params.showComments }}
   {{ partial "comments.html" . }}
+  {{ end }}
 </div>
 {{ end }}
