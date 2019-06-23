@@ -24,5 +24,15 @@ Therefore, to handle errors, change the order of try-catch and setTimeout, like 
 setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catch (e) { console.</description>
     </item>
     
+    <item>
+      <title>About me</title>
+      <link>https://geekoffee.ml/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://geekoffee.ml/about/</guid>
+      <description> Hi, I&#39;m Glauber Magalhães I&#39;m a Full Stack Engineer. I love what I do and I&#39;m always learning, exploring the universe of possibilities and creating new solutions to increase my experiences.
+  &amp;nbsp;    </description>
+    </item>
+    
   </channel>
 </rss>
