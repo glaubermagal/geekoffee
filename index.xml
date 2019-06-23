@@ -18,10 +18,10 @@
       <pubDate>Sat, 22 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>https://geekoffee.ml/posts/handle-error-from-settimeout/</guid>
-      <description>This block of code does not work:
-try { setTimeout(function () { throw new Error(&#39;error!&#39;); }, 300) } catch (e) { console.log(&#39;Caught error: &#39;, e); }  Functions scheduled to run with setTimeout are executed in the main loop, outside the scope of the block that originated them.
+      <description>This block of code does not work: try { setTimeout(function () { throw new Error(&amp;#39;error!&amp;#39;); }, 300) } catch (e) { console.log(&amp;#39;Caught error: &amp;#39;, e); } 
+Functions scheduled to run with setTimeout are executed in the main loop, outside the scope of the block that originated them.
 Therefore, to handle errors, change the order of try-catch and setTimeout, like this:
-setTimeout(function () { try { throw new Error(&#39;error!&#39;); } catch (e) { console.</description>
+setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catch (e) { console.</description>
     </item>
     
   </channel>
