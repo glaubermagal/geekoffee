@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Handle error from setTimeout :: GeeKoffee — Programming tips &amp; blog</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="This block of code does not work:
+try { setTimeout(function () { throw new Error(&#39;error!&#39;); }, 300) } catch (e) { console.log(&#39;Caught error: &#39;, e); }  Functions scheduled to run with setTimeout are executed in the main loop, outside the scope of the block that originated them.
+Therefore, to handle errors, change the order of try-catch and setTimeout, like this:
+setTimeout(function () { try { throw new Error(&#39;error!&#39;); } catch (e) { console."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://geekoffee.ml/posts/handle-error-from-settimeout/" />
+
+
+<link rel="stylesheet" href="https://geekoffee.ml/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://geekoffee.ml/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="https://geekoffee.ml/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Handle error from setTimeout :: GeeKoffee — Programming tips &amp; blog" />
+<meta name="twitter:description" content="This block of code does not work:
+try { setTimeout(function () { throw new Error(&#39;error!&#39;); }, 300) } catch (e) { console.log(&#39;Caught error: &#39;, e); }  Functions scheduled to run with setTimeout are executed in the main loop, outside the scope of the block that originated them.
+Therefore, to handle errors, change the order of try-catch and setTimeout, like this:
+setTimeout(function () { try { throw new Error(&#39;error!&#39;); } catch (e) { console." />
+<meta name="twitter:site" content="https://geekoffee.ml/" />
+<meta name="twitter:creator" content="Glauber Magalhães" />
+<meta name="twitter:image" content="">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Handle error from setTimeout :: GeeKoffee — Programming tips &amp; blog">
+<meta property="og:description" content="This block of code does not work:
+try { setTimeout(function () { throw new Error(&#39;error!&#39;); }, 300) } catch (e) { console.log(&#39;Caught error: &#39;, e); }  Functions scheduled to run with setTimeout are executed in the main loop, outside the scope of the block that originated them.
+Therefore, to handle errors, change the order of try-catch and setTimeout, like this:
+setTimeout(function () { try { throw new Error(&#39;error!&#39;); } catch (e) { console." />
+<meta property="og:url" content="https://geekoffee.ml/posts/handle-error-from-settimeout/" />
+<meta property="og:site_name" content="Handle error from setTimeout" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2019-06-22 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Geo&display=swap" rel="stylesheet">
+<style>
+    .logo {
+        font-family: 'Geo', sans-serif;
+        font-size: 1.765rem;
+        font-weight: bold;
+    }
+    .blinking-cursor {
+        font-weight: 100;
+        font-size: 30px;
+        color: #2E3D48;
+        -webkit-animation: 1s blink step-end infinite;
+        -moz-animation: 1s blink step-end infinite;
+        -ms-animation: 1s blink step-end infinite;
+        -o-animation: 1s blink step-end infinite;
+        animation: 1s blink step-end infinite;
+    }
+
+    @keyframes "blink" {
+        from, to {
+            color: transparent;
+        }
+        50% {
+            color: black;
+        }
+    }
+
+    @-moz-keyframes blink {
+        from, to {
+            color: transparent;
+        }
+        50% {
+            color: black;
+        }
+    }
+
+    @-webkit-keyframes "blink" {
+        from, to {
+            color: transparent;
+        }
+        50% {
+            color: black;
+        }
+    }
+
+    @-ms-keyframes "blink" {
+        from, to {
+            color: transparent;
+        }
+        50% {
+            color: black;
+        }
+    }
+
+    @-o-keyframes "blink" {
+        from, to {
+            color: transparent;
+        }
+        50% {
+            color: black;
+        }
+    }
+</style>
+
+</head>
+<body class="">
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    &gt; GeeKoffee <span class="blinking-cursor">_</span>
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://geekoffee.ml/posts/handle-error-from-settimeout/">Handle error from setTimeout</a></h1>
+  <div class="post-meta">
+      
+    <span class="post-date">
+      2019-06-22
+    </span>
+    
+    
+    <span class="post-author">::
+      Glauber Magalhães
+    </span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://geekoffee.ml/tags/javascript/">JavaScript</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  <div class="post-content">
+    <p>This block of code does not work:</p>
+
+<pre><code>try {
+    setTimeout(function () {
+        throw new Error('error!');
+    }, 300)
+} catch (e) {
+    console.log('Caught error: ', e);
+}
+</code></pre>
+
+<p>Functions scheduled to run with setTimeout are executed in the main loop, outside the scope of the block that originated them.</p>
+
+<p>Therefore, to handle errors, change the order of <code>try-catch</code> and <code>setTimeout</code>, like this:</p>
+
+<pre><code>setTimeout(function () {
+    try {
+        throw new Error('error!');   
+    } catch (e) {
+        console.log('Caught error: ', e)
+    }
+}, 300)
+</code></pre>
+
+  </div>
+  
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "geekoffee" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">© 2019 Glauber Magalhaes.&nbsp;<a href="https://www.gnu.org/licenses/gpl-3.0.html">Some rights reserved</a>.</div>
+    
+  </div>
+</footer>
+
+<script src="https://geekoffee.ml/assets/main.js"></script>
+<script src="https://geekoffee.ml/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
