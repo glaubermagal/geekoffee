@@ -42,13 +42,3 @@ copyright = "© 2019 Glauber Magalhaes.&nbsp;<a href=\"https://www.gnu.org/licen
     [languages.en.params.logo]
       logoText = "> GeeKoffee"
       logoHomeLink = "/"
-
-    [languages.en.menu]
-      [[languages.en.menu.main]]
-        identifier = "about"
-        name = "About"
-        url = "/about"
-      [[languages.en.menu.main]]
-        identifier = "showcase"
-        name = "Showcase"
-        url = "/showcase"
