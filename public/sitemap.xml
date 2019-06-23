@@ -3,36 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
+    <loc>https://geekoffee.ml/</loc>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://geekoffee.ml/posts/handle-error-from-settimeout/</loc>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://geekoffee.ml/tags/javascript/</loc>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/frontend/</loc>
+    <loc>https://geekoffee.ml/posts/</loc>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/posts/handle-error-from-settimeout/</loc>
-  </url>
-  
-  <url>
-    <loc>/tags/javascript/</loc>
+    <loc>https://geekoffee.ml/tags/</loc>
+    <lastmod>2019-06-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/posts/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
+    <loc>https://geekoffee.ml/categories/</loc>
     <priority>0</priority>
   </url>
   
