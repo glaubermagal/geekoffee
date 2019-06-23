@@ -24,7 +24,7 @@ setTimeout(function () { try { throw new Error(&#39;error!&#39;); } catch (e) { 
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://geekoffee.ml/img/apple-touch-icon-144-precomposed.png">
 
-<link rel="shortcut icon" href="https://geekoffee.ml/img/favicon/orange.png">
+<link rel="shortcut icon" href="https://geekoffee.ml/favicon.png">
 
 
 
@@ -67,6 +67,9 @@ setTimeout(function () { try { throw new Error(&#39;error!&#39;); } catch (e) { 
         font-family: 'Geo', sans-serif;
         font-size: 1.765rem;
         font-weight: bold;
+    }
+    .posts {
+        width: 100%;
     }
     .blinking-cursor {
         font-weight: 100;
@@ -129,20 +132,42 @@ setTimeout(function () { try { throw new Error(&#39;error!&#39;); } catch (e) { 
 <body class="">
 
 
-<div class="container center">
+<div class="container">
 
   <header class="header">
   <div class="header__inner">
     <div class="header__logo">
       <a href="/">
   <div class="logo">
-    &gt; GeeKoffee <span class="blinking-cursor">_</span>
+    › GeeKoffee <span class="blinking-cursor">_</span>
   </div>
 </a>
 
     </div>
     <div class="menu-trigger">menu</div>
   </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/pages/about">About me</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/pages/about">About me</a></li>
+      
+    
+  </ul>
+</nav>
+
   
 </header>
 
@@ -203,6 +228,7 @@ setTimeout(function () { try { throw new Error(&#39;error!&#39;); } catch (e) { 
   </div>
   
 
+  
   <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
@@ -223,6 +249,7 @@ setTimeout(function () { try { throw new Error(&#39;error!&#39;); } catch (e) { 
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
 </div>
 
   </div>

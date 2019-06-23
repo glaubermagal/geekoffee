@@ -21,7 +21,7 @@
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://geekoffee.ml/img/apple-touch-icon-144-precomposed.png">
 
-<link rel="shortcut icon" href="https://geekoffee.ml/img/favicon/orange.png">
+<link rel="shortcut icon" href="https://geekoffee.ml/favicon.png">
 
 
 
@@ -60,6 +60,9 @@
         font-family: 'Geo', sans-serif;
         font-size: 1.765rem;
         font-weight: bold;
+    }
+    .posts {
+        width: 100%;
     }
     .blinking-cursor {
         font-weight: 100;
@@ -122,20 +125,42 @@
 <body class="">
 
 
-<div class="container center">
+<div class="container">
 
   <header class="header">
   <div class="header__inner">
     <div class="header__logo">
       <a href="/">
   <div class="logo">
-    &gt; GeeKoffee <span class="blinking-cursor">_</span>
+    › GeeKoffee <span class="blinking-cursor">_</span>
   </div>
 </a>
 
     </div>
     <div class="menu-trigger">menu</div>
   </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/pages/about">About me</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/pages/about">About me</a></li>
+      
+    
+  </ul>
+</nav>
+
   
 </header>
 
