@@ -16,7 +16,7 @@ try {
         throw new Error('error!');
     }, 300)
 } catch (e) {
-    console.log('Caught error: ', e)
+    console.log('Caught error: ', e);
 }
 ```
 
