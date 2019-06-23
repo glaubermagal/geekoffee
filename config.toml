@@ -33,7 +33,7 @@ copyright = "© 2019 Glauber Magalhaes.&nbsp;<a href=\"https://www.gnu.org/licen
 [languages]
   [languages.en]
     title = "GeeKoffee"
-    subtitle = "A lot of crazy stuff from a developer mind"
+    subtitle = "Programming tips & blog"
     keywords = ""
     menuMore = "Show more"
     readMore = "Read more"
