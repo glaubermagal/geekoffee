@@ -36,4 +36,9 @@
     <priority>0</priority>
   </url>
   
+  <url>
+    <loc>https://geekoffee.ml/pages/</loc>
+    <priority>0</priority>
+  </url>
+  
 </urlset>
