@@ -8,6 +8,7 @@ copyright = "© 2019 Glauber Magalhaes.&nbsp;<a href=\"https://www.gnu.org/licen
 [taxonomies]
   category = "categories"
   tag = "tags"
+  page = "pages"
 
 [params]
   author = "Glauber Magalhães"
