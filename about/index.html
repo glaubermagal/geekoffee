@@ -82,6 +82,17 @@
         width: -webkit-calc(100vw - 864px);
         width: calc(100vw - 864px);
         height: 100vh;
+        display: none;
+    }
+
+    body.about #canvas-wrapper {
+        display: block;
+    }
+
+    @media screen and (max-width: 1460px) {
+        #canvas-wrapper {
+            display: none !important;
+        }
     }
 
     @keyframes "blink" {
@@ -131,7 +142,7 @@
 </style>
 
 </head>
-<body class="">
+<body class="about">
 
 
 <div class="container" id="main-content">
