@@ -6,7 +6,7 @@
   {{ end }}
   {{ partial "head.html" . }}
 </head>
-<body class="">
+<body class="{{ .Params.bodyClass }}">
 {{ $container := cond $.Site.Params.FullWidthTheme "container full" (cond $.Site.Params.CenterTheme "container center" "container") }}
 
 <div class="{{- $container -}}" id="main-content">
