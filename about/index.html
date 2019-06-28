@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content=" Hi, I&#39;m Glauber Magalhães I&#39;m a Full Stack Engineer. I love what I do and I&#39;m always learning, exploring the universe of possibilities and creating new solutions to increase my experiences.
+<meta name="description" content=" Hi, I&#39;m Glauber Magalhães I&#39;m a Full Stack Engineer. I love what I do and I&#39;m always learning, exploring the universe of possibilities and creating new solutions.
   &amp;nbsp;    "/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
@@ -28,7 +28,7 @@
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="About me :: GeeKoffee — Programming tips &amp; blog" />
-<meta name="twitter:description" content=" Hi, I&#39;m Glauber Magalhães I&#39;m a Full Stack Engineer. I love what I do and I&#39;m always learning, exploring the universe of possibilities and creating new solutions to increase my experiences.
+<meta name="twitter:description" content=" Hi, I&#39;m Glauber Magalhães I&#39;m a Full Stack Engineer. I love what I do and I&#39;m always learning, exploring the universe of possibilities and creating new solutions.
   &amp;nbsp;    " />
 <meta name="twitter:site" content="https://geekoffee.ml/" />
 <meta name="twitter:creator" content="" />
@@ -38,7 +38,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="About me :: GeeKoffee — Programming tips &amp; blog">
-<meta property="og:description" content=" Hi, I&#39;m Glauber Magalhães I&#39;m a Full Stack Engineer. I love what I do and I&#39;m always learning, exploring the universe of possibilities and creating new solutions to increase my experiences.
+<meta property="og:description" content=" Hi, I&#39;m Glauber Magalhães I&#39;m a Full Stack Engineer. I love what I do and I&#39;m always learning, exploring the universe of possibilities and creating new solutions.
   &amp;nbsp;    " />
 <meta property="og:url" content="https://geekoffee.ml/about/" />
 <meta property="og:site_name" content="About me" />
@@ -74,6 +74,13 @@
         -ms-animation: 1s blink step-end infinite;
         -o-animation: 1s blink step-end infinite;
         animation: 1s blink step-end infinite;
+    }
+    #canvas-wrapper {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: calc(100vw - 864px);
+        height: 100vh;
     }
 
     @keyframes "blink" {
@@ -126,7 +133,7 @@
 <body class="">
 
 
-<div class="container">
+<div class="container" id="main-content">
 
   <header class="header">
   <div class="header__inner">
@@ -183,9 +190,9 @@
   <div class="post-content">
     
 <div style="text-align: center">
-    <img src="/me.png" alt="My profile photo" style="margin: auto; max-width: 140px">
+    <img src="/me.png" alt="My profile photo" style="margin: auto; max-width: 140px;">
     <h2>Hi, I'm Glauber Magalhães</h2> 
-    <p>I'm a Full Stack Engineer. I love what I do and I'm always learning, exploring the universe of possibilities and creating new solutions to increase my experiences.</p>
+    <p>I'm a Full Stack Engineer. I love what I do and I'm always learning, exploring the universe of possibilities and creating new solutions.</p>
     <div style="padding-top: 20px; border-top: 1px solid #e3e3e30f; max-width: 28%; margin: auto;">
         <a href="https://br.linkedin.com/in/glaubertecinfo" style="text-decoration: none;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 310" style="width: 24px; height: 24px;">
@@ -226,6 +233,7 @@
 
   
 </div>
+<iframe src="https://geekoffee/ping-pong.html" frameborder="0" id="canvas-wrapper"></iframe>
 
 </body>
 </html>

@@ -81,6 +81,13 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
         -o-animation: 1s blink step-end infinite;
         animation: 1s blink step-end infinite;
     }
+    #canvas-wrapper {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: calc(100vw - 864px);
+        height: 100vh;
+    }
 
     @keyframes "blink" {
         from, to {
@@ -132,7 +139,7 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
 <body class="">
 
 
-<div class="container">
+<div class="container" id="main-content">
 
   <header class="header">
   <div class="header__inner">
@@ -271,6 +278,7 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
 
   
 </div>
+<iframe src="https://geekoffee/ping-pong.html" frameborder="0" id="canvas-wrapper"></iframe>
 
 </body>
 </html>
