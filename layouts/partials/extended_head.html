@@ -18,6 +18,13 @@
         -o-animation: 1s blink step-end infinite;
         animation: 1s blink step-end infinite;
     }
+    #canvas-wrapper {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: calc(100vw - 864px);
+        height: 100vh;
+    }
 
     @keyframes "blink" {
         from, to {
