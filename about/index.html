@@ -234,13 +234,11 @@
     window.addEventListener('message', function(event) {
         var me = document.getElementById('me')
         var newScore = event.data.newScore || 0
-        if (newScore > localStorage.getItem('score')) {
-            me.dataset.score = limit - newScore;
-            localStorage.setItem('score', newScore);
+        me.dataset.score = limit - newScore;
+        localStorage.setItem('score', newScore);
 
-            if (newScore >= limit) {
-                me.classList.remove('locked')
-            }
+        if (newScore >= limit) {
+            me.classList.remove('locked')
         }
     }, false);
 </script>
