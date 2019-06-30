@@ -306,6 +306,7 @@
             
             points++;
             increaseSpd();
+            window.parent.postMessage({newScore: points}, '*');
             
             if(collision) {
                 if(points > 0) 
@@ -346,7 +347,7 @@
             ctx.font = "16px Arial, sans-serif";
             ctx.textAlign = "left";
             ctx.textBaseline = "top";
-            ctx.fillText("Score: " + points, 20, 20 );
+            ctx.fillText("score: " + points, 20, 20 );
         }
 
         // Function to run when the game overs
