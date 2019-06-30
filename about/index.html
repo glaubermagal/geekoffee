@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="#me { position: relative; } #me.locked .me-content { filter: blur(8px); opacity: 0.6; pointer-events: none; } #me.locked::before { content: &#39;Unlock me with &#39; attr(data-score) &#39; scores&#39;; color: red; display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }   var limit = 30; document.onreadystatechange = function () { if (document.readyState === &#39;interactive&#39;) { var me = document.getElementById(&#39;me&#39;) var score = localStorage.getItem(&#39;score&#39;) || 0 me.dataset.score = limit - score; if (score = limit) { me."/>
+<meta name="description" content="#me { position: relative; } #me.locked .me-content { filter: blur(8px); opacity: 0.6; pointer-events: none; } #me.locked::before { content: &#39;Unlock me with &#39; attr(data-score) &#39; scores&#39;; color: red; display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }   var limit = 20; document.onreadystatechange = function () { if (document.readyState === &#39;interactive&#39;) { var score = localStorage.getItem(&#39;score&#39;) || 0 var me = document.getElementById(&#39;me&#39;) me.dataset.score = limit - score; if (score = limit) { me."/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
 <link rel="canonical" href="https://geekoffee.ml/about/" />
@@ -27,7 +27,7 @@
 
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="About me :: GeeKoffee — Programming tips &amp; blog" />
-<meta name="twitter:description" content="#me { position: relative; } #me.locked .me-content { filter: blur(8px); opacity: 0.6; pointer-events: none; } #me.locked::before { content: &#39;Unlock me with &#39; attr(data-score) &#39; scores&#39;; color: red; display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }   var limit = 30; document.onreadystatechange = function () { if (document.readyState === &#39;interactive&#39;) { var me = document.getElementById(&#39;me&#39;) var score = localStorage.getItem(&#39;score&#39;) || 0 me.dataset.score = limit - score; if (score = limit) { me." />
+<meta name="twitter:description" content="#me { position: relative; } #me.locked .me-content { filter: blur(8px); opacity: 0.6; pointer-events: none; } #me.locked::before { content: &#39;Unlock me with &#39; attr(data-score) &#39; scores&#39;; color: red; display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }   var limit = 20; document.onreadystatechange = function () { if (document.readyState === &#39;interactive&#39;) { var score = localStorage.getItem(&#39;score&#39;) || 0 var me = document.getElementById(&#39;me&#39;) me.dataset.score = limit - score; if (score = limit) { me." />
 <meta name="twitter:site" content="https://geekoffee.ml/" />
 <meta name="twitter:creator" content="" />
 <meta name="twitter:image" content="">
@@ -36,7 +36,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="About me :: GeeKoffee — Programming tips &amp; blog">
-<meta property="og:description" content="#me { position: relative; } #me.locked .me-content { filter: blur(8px); opacity: 0.6; pointer-events: none; } #me.locked::before { content: &#39;Unlock me with &#39; attr(data-score) &#39; scores&#39;; color: red; display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }   var limit = 30; document.onreadystatechange = function () { if (document.readyState === &#39;interactive&#39;) { var me = document.getElementById(&#39;me&#39;) var score = localStorage.getItem(&#39;score&#39;) || 0 me.dataset.score = limit - score; if (score = limit) { me." />
+<meta property="og:description" content="#me { position: relative; } #me.locked .me-content { filter: blur(8px); opacity: 0.6; pointer-events: none; } #me.locked::before { content: &#39;Unlock me with &#39; attr(data-score) &#39; scores&#39;; color: red; display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }   var limit = 20; document.onreadystatechange = function () { if (document.readyState === &#39;interactive&#39;) { var score = localStorage.getItem(&#39;score&#39;) || 0 var me = document.getElementById(&#39;me&#39;) me.dataset.score = limit - score; if (score = limit) { me." />
 <meta property="og:url" content="https://geekoffee.ml/about/" />
 <meta property="og:site_name" content="About me" />
 <meta property="og:image" content="">
@@ -219,12 +219,12 @@
     }
 </style>
 <script>
-    var limit = 30;
+    var limit = 20; 
 
     document.onreadystatechange = function () {
         if (document.readyState === 'interactive') {
-            var me = document.getElementById('me')
             var score = localStorage.getItem('score') || 0
+            var me = document.getElementById('me')
             me.dataset.score = limit - score;
             if (score >= limit) {
                 me.classList.remove('locked')
@@ -232,14 +232,25 @@
         }
     }
     window.addEventListener('message', function(event) {
-        var me = document.getElementById('me')
-        var newScore = event.data.newScore || 0
-        me.dataset.score = limit - newScore;
-        localStorage.setItem('score', newScore);
+        if (event.data.newScore) {
+            var newScore = event.data.newScore
+            var me = document.getElementById('me')
+            me.dataset.score = limit - newScore;
+            localStorage.setItem('score', newScore);
 
-        if (newScore >= limit) {
-            me.classList.remove('locked')
+            if (newScore >= limit) {
+                me.classList.remove('locked')
+            }
         }
+        if (event.data.gameOver) {
+            var score = localStorage.getItem('score')
+            var me = document.getElementById('me')
+            if (score < limit) {
+                localStorage.setItem('score', 0);
+                me.dataset.score = limit;
+            }
+        }
+        console.log(event.data);
     }, false);
 </script>
 
@@ -289,7 +300,7 @@
 
   
 </div>
-<iframe src="https://geekoffee.ml/ping-pong.html" frameborder="0" id="canvas-wrapper"></iframe>
+<iframe src="http://localhost:8080/ping-pong.html" frameborder="0" id="canvas-wrapper"></iframe>
 
 </body>
 </html>
