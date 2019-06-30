@@ -25,12 +25,12 @@ bodyClass: "about"
     }
 </style>
 <script>
-    var limit = 30;
+    var limit = 20; 
 
     document.onreadystatechange = function () {
         if (document.readyState === 'interactive') {
-            var me = document.getElementById('me')
             var score = localStorage.getItem('score') || 0
+            var me = document.getElementById('me')
             me.dataset.score = limit - score;
             if (score >= limit) {
                 me.classList.remove('locked')
@@ -38,14 +38,25 @@ bodyClass: "about"
         }
     }
     window.addEventListener('message', function(event) {
-        var me = document.getElementById('me')
-        var newScore = event.data.newScore || 0
-        me.dataset.score = limit - newScore;
-        localStorage.setItem('score', newScore);
+        if (event.data.newScore) {
+            var newScore = event.data.newScore
+            var me = document.getElementById('me')
+            me.dataset.score = limit - newScore;
+            localStorage.setItem('score', newScore);
 
-        if (newScore >= limit) {
-            me.classList.remove('locked')
+            if (newScore >= limit) {
+                me.classList.remove('locked')
+            }
         }
+        if (event.data.gameOver) {
+            var score = localStorage.getItem('score')
+            var me = document.getElementById('me')
+            if (score < limit) {
+                localStorage.setItem('score', 0);
+                me.dataset.score = limit;
+            }
+        }
+        console.log(event.data);
     }, false);
 </script>
 

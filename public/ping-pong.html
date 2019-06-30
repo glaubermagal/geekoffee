@@ -366,6 +366,8 @@
             
             // Show the restart button
             restartBtn.draw();
+
+            window.parent.postMessage({gameOver: true}, '*');
         }
 
         // Function for running the whole animation
