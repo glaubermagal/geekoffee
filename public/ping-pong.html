@@ -306,6 +306,7 @@
             
             points++;
             increaseSpd();
+            window.parent.postMessage({newScore: points}, '*');
             
             if(collision) {
                 if(points > 0) 
