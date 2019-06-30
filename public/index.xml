@@ -30,8 +30,7 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://geekoffee.ml/about/</guid>
-      <description> Hi, I&#39;m Glauber Magalhães I&#39;m a Full Stack Engineer. I love what I do and I&#39;m always learning, exploring the universe of possibilities and creating new solutions.
-  &amp;nbsp;    </description>
+      <description>#me { position: relative; } #me.locked .me-content { filter: blur(8px); opacity: 0.6; pointer-events: none; } #me.locked::before { content: &#39;Unlock me with &#39; attr(data-score) &#39; scores&#39;; color: red; display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }   var limit = 30; document.onreadystatechange = function () { if (document.readyState === &#39;interactive&#39;) { var me = document.getElementById(&#39;me&#39;) var score = localStorage.getItem(&#39;score&#39;) || 0 me.dataset.score = limit - score; if (score = limit) { me.</description>
     </item>
     
   </channel>
