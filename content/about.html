@@ -8,20 +8,22 @@ bodyClass: "about page"
     #me {
         position: relative;
     }
-    #me.locked .me-content {
-        filter: blur(8px);
-        opacity: 0.6;
-        pointer-events: none;
-    }
-    #me.locked::before {
-        content: 'Unlock me with ' attr(data-score) ' scores';
-        color: red;
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1;
+    @media screen and (min-width: 1461px) {
+        #me.locked .me-content {
+            filter: blur(8px);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        #me.locked::before {
+            content: 'Unlock me with ' attr(data-score) ' scores';
+            color: red;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
     }
 </style>
 <script>
