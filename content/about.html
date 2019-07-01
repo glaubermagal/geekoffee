@@ -42,9 +42,9 @@ bodyClass: "about"
             var newScore = event.data.newScore
             var me = document.getElementById('me')
             me.dataset.score = limit - newScore;
-            localStorage.setItem('score', newScore);
 
             if (newScore >= limit) {
+                localStorage.setItem('score', newScore);
                 me.classList.remove('locked')
             }
         }
