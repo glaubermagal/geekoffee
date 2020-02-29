@@ -3,7 +3,7 @@ baseURL = "https://geekoffee.ml/"
 languageCode = "en-us"
 theme = "terminal"
 disqusShortname = "geekoffee"
-copyright = "© 2019 Glauber Magalhaes.&nbsp;<a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">Some rights reserved</a>."
+copyright = "© 2020 Glauber Magalhaes.&nbsp;<a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">Some rights reserved</a>."
 
 [taxonomies]
   category = "categories"
