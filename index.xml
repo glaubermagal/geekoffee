@@ -6,11 +6,20 @@
     <description>Recent content on GeeKoffee</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>© 2019 Glauber Magalhaes.&amp;nbsp;&lt;a href=&#34;https://www.gnu.org/licenses/gpl-3.0.html&#34;&gt;Some rights reserved&lt;/a&gt;.</copyright>
-    <lastBuildDate>Sat, 22 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <copyright>© 2020 Glauber Magalhaes.&amp;nbsp;&lt;a href=&#34;https://www.gnu.org/licenses/gpl-3.0.html&#34;&gt;Some rights reserved&lt;/a&gt;.</copyright>
+    <lastBuildDate>Sat, 29 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://geekoffee.ml/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ensuring integrity, authenticity and non-repudiation in data transmission using node.js</title>
+      <link>https://geekoffee.ml/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://geekoffee.ml/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/</guid>
+      <description>Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: the information must be available when it is needed.</description>
+    </item>
     
     <item>
       <title>Handle error from setTimeout</title>
@@ -30,7 +39,7 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://geekoffee.ml/about/</guid>
-      <description>#me { position: relative; } @media screen and (min-width: 1461px) { #me.locked .me-content { filter: blur(8px); opacity: 0.6; pointer-events: none; } #me.locked::before { content: &#39;Unlock me with &#39; attr(data-score) &#39; scores&#39;; color: red; display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; } }   var limit = 20; document.onreadystatechange = function () { if (document.readyState === &#39;interactive&#39;) { var score = localStorage.getItem(&#39;score&#39;) || 0 var me = document.</description>
+      <description>#me { position: relative; } @media screen and (min-width: 1461px) { #me.locked .me-content { filter: blur(8px); opacity: 0.6; pointer-events: none; } #me.locked::before { content: &#39;Unlock me with &#39; attr(data-score) &#39; points&#39;; color: red; display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; } }   var limit = 20; document.onreadystatechange = function () { if (document.readyState === &#39;interactive&#39;) { var score = localStorage.getItem(&#39;score&#39;) || 0 var me = document.</description>
     </item>
     
   </channel>

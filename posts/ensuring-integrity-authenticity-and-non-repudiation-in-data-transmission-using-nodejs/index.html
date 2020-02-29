@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Ensuring integrity, authenticity and non-repudiation in data transmission using node.js :: GeeKoffee — Programming tips &amp; blog</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: the information must be available when it is needed."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://geekoffee.ml/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/" />
+
+
+<link rel="stylesheet" href="https://geekoffee.ml/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://geekoffee.ml/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="https://geekoffee.ml/favicon.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Ensuring integrity, authenticity and non-repudiation in data transmission using node.js :: GeeKoffee — Programming tips &amp; blog" />
+<meta name="twitter:description" content="Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: the information must be available when it is needed." />
+<meta name="twitter:site" content="https://geekoffee.ml/" />
+<meta name="twitter:creator" content="Glauber Magalhães" />
+<meta name="twitter:image" content="">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Ensuring integrity, authenticity and non-repudiation in data transmission using node.js :: GeeKoffee — Programming tips &amp; blog">
+<meta property="og:description" content="Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: the information must be available when it is needed." />
+<meta property="og:url" content="https://geekoffee.ml/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/" />
+<meta property="og:site_name" content="Ensuring integrity, authenticity and non-repudiation in data transmission using node.js" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2020-02-29 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Geo&display=swap" rel="stylesheet">
+<style>
+    .logo {
+        font-family: 'Geo', sans-serif;
+        font-size: 1.765rem;
+        font-weight: bold;
+    }
+    .posts {
+        width: 100%;
+    }
+    .blinking-cursor {
+        font-weight: 100;
+        font-size: 30px;
+        color: #2E3D48;
+        -webkit-animation: 1s blink step-end infinite;
+        -moz-animation: 1s blink step-end infinite;
+        -ms-animation: 1s blink step-end infinite;
+        -o-animation: 1s blink step-end infinite;
+        animation: 1s blink step-end infinite;
+    }
+    #canvas-wrapper {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: -webkit-calc(100vw - 864px);
+        width: calc(100vw - 864px);
+        height: 100vh;
+        display: none;
+    }
+
+    body.about #canvas-wrapper {
+        display: block;
+    }
+
+    @media screen and (max-width: 1460px) {
+        #canvas-wrapper {
+            display: none !important;
+        }
+    }
+
+    @keyframes "blink" {
+        from, to {
+            color: transparent;
+        }
+        50% {
+            color: black;
+        }
+    }
+
+    @-moz-keyframes blink {
+        from, to {
+            color: transparent;
+        }
+        50% {
+            color: black;
+        }
+    }
+
+    @-webkit-keyframes "blink" {
+        from, to {
+            color: transparent;
+        }
+        50% {
+            color: black;
+        }
+    }
+
+    @-ms-keyframes "blink" {
+        from, to {
+            color: transparent;
+        }
+        50% {
+            color: black;
+        }
+    }
+
+    @-o-keyframes "blink" {
+        from, to {
+            color: transparent;
+        }
+        50% {
+            color: black;
+        }
+    }
+</style>
+
+</head>
+<body class="">
+
+
+<div class="container" id="main-content">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    › GeeKoffee <span class="blinking-cursor">_</span>
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About me</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About me</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://geekoffee.ml/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/">Ensuring integrity, authenticity and non-repudiation in data transmission using node.js</a></h1>
+  <div class="post-meta">
+      
+    <span class="post-date">
+      2020-02-29
+    </span>
+    
+    
+    <span class="post-author">::
+      Glauber Magalhães
+    </span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://geekoffee.ml/tags/node.js/">node.js</a>&nbsp;
+    
+    #<a href="https://geekoffee.ml/tags/cybersecurity/">cybersecurity</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  <div class="post-content">
+    
+
+<h2 id="core-concepts-of-information-security">Core concepts of Information Security</h2>
+
+<ul>
+<li><strong>Integrity:</strong> can the recipient be confident that the message has not been modified during its lifecycle?</li>
+<li><strong>Authentication:</strong> can the recipient be confident that the message was originated from the sender?</li>
+<li><strong>Non-repudiation:</strong> if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender?</li>
+<li><strong>Availability:</strong> the information must be available when it is needed. This concept will not be covered by this article.</li>
+</ul>
+
+<p>These concepts are also called Security Goals, when we want to apply them to our systems. We can achieve these goals by using Cryptographic Primitives.</p>
+
+<p>Cryptographic primitives are well-established, low-level cryptographic algorithms that are frequently used to build cryptographic protocols for computer security systems. These routines include, but are not limited to, one-way hash functions and encryption functions.</p>
+
+<p>In the table below, we can see the Security Goals that some Cryptographic Primitives can provide. In this article I will be covering examples of HMAC and Digital Signatures.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">    Cryptographic Primitive | Hash |    MAC    | Digital Signature
+    Security Goal           |      |           | 
+    ------------------------+------+-----------+------------------
+    Integrity               |  Yes |    Yes    |   Yes
+    Authentication          |  No  |    Yes    |   Yes
+    Non-repudiation         |  No  |    No     |   Yes
+    ------------------------+------+-----------+------------------
+    Kind of keys            | none | symmetric | asymmetric
+                            |      |    keys   |    keys</code></pre></div>
+
+<h2 id="definition-of-mac">Definition of MAC</h2>
+
+<p>A Message authentication Code (MAC) is a short piece of information used to authenticate a message. In other words, it&rsquo;s used to confirm that the message came from an expected sender and has not been changed without your knowledge. The MAC value ensures both the <strong>integrity</strong> and <strong>authenticity</strong> of a message, by regenerating it in the recipient using a shared secret <strong>key (K)</strong>.</p>
+
+<p><img src="/imgs/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/mac.png" alt="MAC" /></p>
+
+<h2 id="definition-of-hmac">Definition of HMAC</h2>
+
+<p>A <strong>Keyed-Hash Message Authentication Code</strong> (HMAC) is a MAC obtained by running a cryptographic hash function (like MD5, SHA1 or SHA256) over the data and a shared secret key.</p>
+
+<p>The main difference between MAC and HMAC is that MAC is a tag or a piece of information that helps to authenticate a message, while HMAC is a special type of MAC with a <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">cryptographic hash function</a> and a secret key.</p>
+
+<p>HMACs are almost similar to digital signatures. Both enforce <strong>integrity</strong> and <strong>authenticity</strong>. Both use cryptographic keys, and both use hash functions. The main difference is that digital signatures use asymmetric keys, while HMACs use symmetric keys.</p>
+
+<p>HMACs may not enforce <strong>non-repudiation</strong> because the sender and the receiver share the same secret key.</p>
+
+<h2 id="definition-of-digital-signature">Definition of Digital Signature</h2>
+
+<p>A digital signature is created with a private key, and verified with the corresponding public key of an asymmetric key-pair. Only the holder of the private key can create this signature.</p>
+
+<p>The public keys are available to everyone. The private key is known only by the owner and can’t be derived from a public key. When something is encrypted with the public key, only the corresponding private key can decrypt it. In addition, when something is encrypted with the private key, then anyone can verify it with the corresponding public key.</p>
+
+<h2 id="example-of-hmac-sha256-with-node-js">Example of HMAC-SHA256 with <strong>node.js</strong></h2>
+
+<p>Due to some HMAC&rsquo;s properties (especially its cryptographic strength), it&rsquo;s highly dependent on its underlying hash function, a particular HMAC is usually identified based on that hash function. So we have HMAC algorithms that go by the names of HMAC-MD5, HMAC-SHA1, or HMAC-SHA256. This last one is cryptographically stronger than the others, so in this article, I&rsquo;ll provide an example of HMAC using SHA256 algorithm. See it below:</p>
+
+<h3 id="creating-a-hash-for-the-message">Creating a hash for the message</h3>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#75715e">// get_hmac.js
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">// The crypto module provides cryptographic functionality that includes
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// a set of wrappers for OpenSSL&#39;s hash, HMAC, cipher, decipher, sign, 
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// and verify functions.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createHmac</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;crypto&#34;</span>;
+    
+    <span style="color:#75715e">// The shared secret should be an extremely complex string, 
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// in order to avoid brute force attacks
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sharedSecret</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;I\&#39;m a very hard random string&#39;</span>;
+    
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getHmac</span>(<span style="color:#a6e22e">body</span>) {
+    	<span style="color:#75715e">// The object is converted to a string because the update method 
+</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// only accepts string, Buffer, TypedArray or DataView as types.
+</span><span style="color:#75715e"></span>    	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">body</span>);
+    	
+    	<span style="color:#75715e">// 
+</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// crypto.createHmac(algorithm, key[, options]): this method creates the HMAC.
+</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// In our example, we use the algorithm SHA256 that will combine the shared
+</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// secret with the input message and will return a hash digested as a base64 
+</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// string.
+</span><span style="color:#75715e"></span>    	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hmac</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createHmac</span>(<span style="color:#e6db74">&#39;SHA256&#39;</span>, <span style="color:#a6e22e">sharedSecret</span>)
+    	  .<span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">message</span>, <span style="color:#e6db74">&#39;utf-8&#39;</span>)
+    	  .<span style="color:#a6e22e">digest</span>(<span style="color:#e6db74">&#39;base64&#39;</span>);
+    	
+    	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">hmac</span>;
+    }
+    
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> {
+    	<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;foo&#39;</span>,
+    	<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">24</span>
+    };
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hmac</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getHmac</span>(<span style="color:#a6e22e">body</span>);
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`HMAC generated: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">hmac</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</code></pre></div>
+
+<h3 id="validating-the-message">Validating the message</h3>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#75715e">// validate_hmac.js
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createHmac</span>, <span style="color:#a6e22e">timingSafeEqual</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;crypto&#34;</span>;
+    
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sharedSecret</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;I\&#39;m a very hard random string&#39;</span>;
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hmac</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;use the HMAC generated with the getHmac method&gt;&#39;</span>;
+    
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">validateHmac</span>(<span style="color:#a6e22e">hmac</span>, <span style="color:#a6e22e">body</span>) {
+    	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">body</span>);
+    	
+    	<span style="color:#75715e">// Now we convert the hashes to Buffer because the timingSafeEqual needs them
+</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// as types Buffer, TypedArray or DataView
+</span><span style="color:#75715e"></span>    	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">providedHmac</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Buffer</span>.<span style="color:#a6e22e">from</span>(<span style="color:#a6e22e">hmac</span>, <span style="color:#e6db74">&#39;utf-8&#39;</span>);
+    	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">generatedHash</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Buffer</span>.<span style="color:#a6e22e">from</span>(
+    	  <span style="color:#a6e22e">createHmac</span>(<span style="color:#e6db74">&#39;SHA256&#39;</span>, <span style="color:#a6e22e">sharedSecret</span>).<span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">message</span>).<span style="color:#a6e22e">digest</span>(<span style="color:#e6db74">&#39;base64&#39;</span>),
+    	  <span style="color:#e6db74">&#39;utf-8&#39;</span>,
+    	);
+    	
+    	<span style="color:#75715e">// This method operates with secret data in a way that does not leak 
+</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// information about that data through how long it takes to perform 
+</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// the operation. 
+</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// You could compare the hashes as string, but you should compare timing in
+</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// order to make your code safer.
+</span><span style="color:#75715e"></span>    	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">timingSafeEqual</span>(<span style="color:#a6e22e">generatedHash</span>, <span style="color:#a6e22e">providedHmac</span>)) {
+    		<span style="color:#75715e">// The message was changed, the HMAC is invalid or the timing isn&#39;t safe
+</span><span style="color:#75715e"></span>    		<span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Invalid request&#39;</span>);
+    	}
+    }
+    
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> {
+    	<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;foo&#39;</span>,
+    	<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">24</span>
+    };
+    
+    <span style="color:#66d9ef">try</span> {
+    	<span style="color:#a6e22e">validateHmac</span>(<span style="color:#a6e22e">hmac</span>, <span style="color:#a6e22e">body</span>);
+    	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Valid HMAC&#39;</span>);
+    } <span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">error</span>) {
+    	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">`Error: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">error</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+    }
+</code></pre></div>
+
+<p>Apparently, just comparing the two hashes as strings would be enough, but you should compare the time of generation of hashes in order to avoid timing attacks. For more information about this sort of issue, see <a href="https://codahale.com/a-lesson-in-timing-attacks/">Coda Hale’s blog post</a> about the timing attacks on KeyCzar and Java’s <code>MessageDigest.isEqual()</code>.</p>
+
+<p>Suppose that a client is sending a message to a server, but the message or the hash was modified during its transmission, configuring a <a href="https://www.cloudflare.com/learning/security/threats/man-in-the-middle-attack/">man-in-the-middle attack</a>. In this case, the server should detect the possible attack and reject the request.</p>
+
+<p>This code is also available on <a href="https://github.com/glaubermagal/hmac-example">this github repo</a>.</p>
+
+<h2 id="example-of-digital-signature-with-node-js">Example of Digital Signature with <strong>node.js</strong></h2>
+
+<p>Digital Signatures work with asymmetric key-pair, one private and others public. In the example below, we will be generating the keys with <a href="https://github.com/openssl/openssl">OpenSSL</a>.</p>
+
+<p>Create a folder for your project and create a <code>/keys</code> folder on its root. After that, generate the key-pair. You can follow some simple examples in the lines below:</p>
+
+<p><strong>Creating a private key on keys folder</strong>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -pkeyopt rsa_keygen_pubexp:3 -out private_key.pem</code></pre></div></p>
+
+<p><strong>Creating a public key on keys folder</strong>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    openssl pkey -in private_key.pem -out public_key.pem -pubout</code></pre></div></p>
+
+<p><strong>Create some document in the project root (follow an artistic example below)</strong>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">    IMITATION
+    
+    by Edgar Allan Poe
+    
+    A dark unfathomed tide
+    Of interminable pride--
+    A mystery, and a dream,
+    Should my early life seem;
+    I say that dream was fraught
+    With a wild and waking thought
+    Of beings that have been,
+    Which my spirit hath not seen,
+    Had I let them pass me by,
+    With a dreaming eye!
+    Let none of earth inherit
+    That vision on my spirit;
+    Those thoughts I would control,
+    As a spell upon his soul:
+    For that bright hope at last
+    And that light time have past,
+    And my wordly rest hath gone
+    With a sigh as it passed on:
+    I care not though it perish
+    With a thought I then did cherish.</code></pre></div></p>
+
+<p>The code below is responsible by creating a digital signature from your document using your private key.</p>
+
+<h3 id="sign-the-document">Sign the document</h3>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#75715e">// sign.js
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">crypto</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;crypto&#39;</span>
+    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">fs</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;fs&#39;</span>
+    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">path</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;path&#39;</span>
+    
+    <span style="color:#75715e">// Read the private key
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">private_key</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#e6db74">&#39;keys/private_key.pem&#39;</span>, <span style="color:#e6db74">&#39;utf-8&#39;</span>);
+    
+    <span style="color:#75715e">// Read document to be signed
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> document <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;document.txt&#39;</span>));
+    
+    <span style="color:#75715e">// Create sign
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">signer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">createSign</span>(<span style="color:#e6db74">&#39;RSA-SHA256&#39;</span>);
+    <span style="color:#a6e22e">signer</span>.<span style="color:#a6e22e">write</span>(document);
+    <span style="color:#a6e22e">signer</span>.<span style="color:#a6e22e">end</span>();
+    
+    <span style="color:#75715e">// Sign the document with the private key
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">signature</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">signer</span>.<span style="color:#a6e22e">sign</span>(<span style="color:#a6e22e">private_key</span>, <span style="color:#e6db74">&#39;base64&#39;</span>)
+    
+    <span style="color:#75715e">// Write signature to a file
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">writeFileSync</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;signature.txt&#39;</span>), <span style="color:#a6e22e">signature</span>);
+    
+    <span style="color:#75715e">// Output Digital Signature
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Digital Signature: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">signature</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</code></pre></div>
+
+<p>The code below is responsible by validating the authenticity, integrity and non-repudiation of your  document using your public key.</p>
+
+<h3 id="validating-the-document">Validating the document</h3>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#75715e">// verify.js
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">crypto</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;crypto&#39;</span>
+    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">fs</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;fs&#39;</span>
+    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">path</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;path&#39;</span>
+    
+    <span style="color:#75715e">// Read the public key
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">public_key</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#e6db74">&#39;keys/public_key.pem&#39;</span>, <span style="color:#e6db74">&#39;utf-8&#39;</span>);
+    
+    <span style="color:#75715e">// Get the signature
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">signature</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;signature.txt&#39;</span>), <span style="color:#e6db74">&#39;utf-8&#39;</span>);
+    
+    <span style="color:#75715e">// File to be verified
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> document <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;document.txt&#39;</span>));
+    
+    <span style="color:#75715e">// Create a verification sign
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">verifier</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">createVerify</span>(<span style="color:#e6db74">&#39;RSA-SHA256&#39;</span>);
+    <span style="color:#a6e22e">verifier</span>.<span style="color:#a6e22e">write</span>(document);
+    <span style="color:#a6e22e">verifier</span>.<span style="color:#a6e22e">end</span>();
+    
+    <span style="color:#75715e">// Match file signature with the public key against the signature provided
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">verifier</span>.<span style="color:#a6e22e">verify</span>(<span style="color:#a6e22e">public_key</span>, <span style="color:#a6e22e">signature</span>, <span style="color:#e6db74">&#39;base64&#39;</span>);
+    
+    <span style="color:#75715e">// Displays if it worked or not!
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Digital Signature Verification: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">result</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</code></pre></div>
+
+<p><strong>Now, let&rsquo;s play!</strong></p>
+
+<p>This will write the signature of your document in the file signature.txt:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    npm run sign
+    
+    // $ Digital Signature: ...</code></pre></div></p>
+
+<p>This will verify the signature of your document. Try changing the content of the document or the signature and see what happens:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    npm run verify
+    
+    // $ Digital Signature Verification: <span style="color:#f92672">(</span>true or false<span style="color:#f92672">)</span></code></pre></div></p>
+
+<p>You can take a look on these code on <a href="https://github.com/glaubermagal/digital-signature-example">my github repo</a>.</p>
+
+<h2 id="what-cryptographic-primitive-should-you-use">What Cryptographic Primitive should you use?</h2>
+
+<p>This depends on the context. Sometimes you will communicate between only two servers on a private network and there&rsquo;s not the necessity of validating <strong>non-repudiation</strong>, so a simple HMAC validation should be enough. Sometimes your system will be shared by an uncountable number of clients and servers, so in this case you might be interested in enforcing the <strong>non-repudiation,</strong> instead of just sharing the secret key with anyone.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This is a basic explanation about how to implement some Information Security Goals using some known Cryptographic Primitives using node.js. You should be aware that there are many kinds of advanced attacks that should be prevented by using other security layers and strategies.</p>
+
+<p>Thanks for reading! :)</p>
+
+<p><strong>References</strong></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Message_authentication_code">https://en.wikipedia.org/wiki/Message_authentication_code</a>
+<a href="https://codahale.com/a-lesson-in-timing-attacks/">https://codahale.com/a-lesson-in-timing-attacks/</a>
+<a href="https://crypto.stackexchange.com/questions/5646/what-are-the-differences-between-a-digital-signature-a-mac-and-a-hash?newreg=90481a425fb14ff0a7250cde651e77e8">https://crypto.stackexchange.com/questions/5646/what-are-the-differences-between-a-digital-signature-a-mac-and-a-hash?newreg=90481a425fb14ff0a7250cde651e77e8</a>
+<a href="https://resources.infosecinstitute.com/wireless-attacks-unleashed/">https://resources.infosecinstitute.com/wireless-attacks-unleashed/</a>
+<a href="https://en.wikipedia.org/wiki/Stream_cipher_attacks">https://en.wikipedia.org/wiki/Stream_cipher_attacks</a>
+<a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">https://en.wikipedia.org/wiki/Cryptographic_hash_function</a>
+<a href="https://www.jscape.com/blog/what-is-hmac-and-how-does-it-secure-file-transfers">https://www.jscape.com/blog/what-is-hmac-and-how-does-it-secure-file-transfers</a>
+<a href="https://www.jscape.com/blog/bid/84422/Symmetric-vs-Asymmetric-Encryption">https://www.jscape.com/blog/bid/84422/Symmetric-vs-Asymmetric-Encryption</a>
+<a href="https://www.cloudflare.com/learning/security/threats/man-in-the-middle-attack/">https://www.cloudflare.com/learning/security/threats/man-in-the-middle-attack/</a>
+<a href="https://resources.infosecinstitute.com/non-repudiation-digital-signature/#gref">https://resources.infosecinstitute.com/non-repudiation-digital-signature/#gref</a></p>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">Read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      
+      <span class="button next">
+        <a href="https://geekoffee.ml/posts/handle-error-from-settimeout/">
+          <span class="button__text">Handle error from setTimeout</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "geekoffee" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">© 2020 Glauber Magalhaes.&nbsp;<a href="https://www.gnu.org/licenses/gpl-3.0.html">Some rights reserved</a>.</div>
+    
+  </div>
+</footer>
+
+<script src="https://geekoffee.ml/assets/main.js"></script>
+<script src="https://geekoffee.ml/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+<iframe src="https://geekoffee.ml/ping-pong.html" frameborder="0" id="canvas-wrapper"></iframe>
+
+</body>
+</html>

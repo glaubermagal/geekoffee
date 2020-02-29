@@ -6,11 +6,29 @@
     <description>Recent content in Tags on GeeKoffee</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>© 2019 Glauber Magalhaes.&amp;nbsp;&lt;a href=&#34;https://www.gnu.org/licenses/gpl-3.0.html&#34;&gt;Some rights reserved&lt;/a&gt;.</copyright>
-    <lastBuildDate>Sat, 22 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <copyright>© 2020 Glauber Magalhaes.&amp;nbsp;&lt;a href=&#34;https://www.gnu.org/licenses/gpl-3.0.html&#34;&gt;Some rights reserved&lt;/a&gt;.</copyright>
+    <lastBuildDate>Sat, 29 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://geekoffee.ml/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cybersecurity</title>
+      <link>https://geekoffee.ml/tags/cybersecurity/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://geekoffee.ml/tags/cybersecurity/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>node.js</title>
+      <link>https://geekoffee.ml/tags/node.js/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://geekoffee.ml/tags/node.js/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>JavaScript</title>

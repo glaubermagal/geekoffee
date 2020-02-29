@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on GeeKoffee</title>
-    <link>https://geekoffee.ml/posts/</link>
-    <description>Recent content in Posts on GeeKoffee</description>
+    <title>cybersecurity on GeeKoffee</title>
+    <link>https://geekoffee.ml/tags/cybersecurity/</link>
+    <description>Recent content in cybersecurity on GeeKoffee</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 Glauber Magalhaes.&amp;nbsp;&lt;a href=&#34;https://www.gnu.org/licenses/gpl-3.0.html&#34;&gt;Some rights reserved&lt;/a&gt;.</copyright>
     <lastBuildDate>Sat, 29 Feb 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://geekoffee.ml/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://geekoffee.ml/tags/cybersecurity/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,18 +19,6 @@
       
       <guid>https://geekoffee.ml/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/</guid>
       <description>Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: the information must be available when it is needed.</description>
-    </item>
-    
-    <item>
-      <title>Handle error from setTimeout</title>
-      <link>https://geekoffee.ml/posts/handle-error-from-settimeout/</link>
-      <pubDate>Sat, 22 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://geekoffee.ml/posts/handle-error-from-settimeout/</guid>
-      <description>This block of code does not work: try { setTimeout(function () { throw new Error(&amp;#39;error!&amp;#39;); }, 300) } catch (e) { console.log(&amp;#39;Caught error: &amp;#39;, e); } 
-Functions scheduled to run with setTimeout are executed in the main loop, outside the scope of the block that originated them.
-Therefore, to handle errors, change the order of try-catch and setTimeout, like this:
-setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catch (e) { console.</description>
     </item>
     
   </channel>
