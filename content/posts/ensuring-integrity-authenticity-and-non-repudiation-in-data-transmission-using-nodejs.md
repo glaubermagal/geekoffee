@@ -173,7 +173,7 @@ Create a folder for your project and create a `/keys` folder on its root. After 
     by Edgar Allan Poe
     
     A dark unfathomed tide
-    Of interminable pride--
+    Of interminable pride
     A mystery, and a dream,
     Should my early life seem;
     I say that dream was fraught
