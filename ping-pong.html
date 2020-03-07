@@ -27,6 +27,9 @@
 <body>
     <canvas id="canvas"></canvas>
     <script>
+        var sound = new Audio("https://geekoffee.ml/8bit.mp3");
+        sound.volume = 0.1;
+
         // RequestAnimFrame: a browser API for getting smooth animations
         window.requestAnimFrame = (function(){
             return  window.requestAnimationFrame       || 
@@ -361,8 +364,12 @@
             ctx.textAlign = "left";
             ctx.textBaseline = "top";
             if (points > 0) {
+                if (sound.volume < 0.5) {
+                    sound.volume = points * 0.1;
+                }
                 ctx.fillText("SCORE: " + points, 20, 20 );
             }
+            console.log(sound.volume);
         }
 
         // Function to run when the game overs
@@ -401,8 +408,9 @@
         function btnClick(e) {
 
             document.body.classList.add('play');
-            var sound = new Audio("https://geekoffee.ml/8bit.mp3");
-            sound.play();
+            if (sound.paused) {
+                sound.play();
+            }
             
             // Variables for storing mouse position on click
             var mx = e.pageX,
