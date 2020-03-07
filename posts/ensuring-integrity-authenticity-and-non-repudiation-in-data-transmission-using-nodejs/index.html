@@ -213,23 +213,16 @@
   
 
   <div class="post-content">
-    
-
-<h2 id="core-concepts-of-information-security">Core concepts of Information Security</h2>
-
+    <h2 id="core-concepts-of-information-security">Core concepts of Information Security</h2>
 <ul>
 <li><strong>Integrity:</strong> can the recipient be confident that the message has not been modified during its lifecycle?</li>
 <li><strong>Authentication:</strong> can the recipient be confident that the message was originated from the sender?</li>
 <li><strong>Non-repudiation:</strong> if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender?</li>
 <li><strong>Availability:</strong> the information must be available when it is needed. This concept will not be covered by this article.</li>
 </ul>
-
 <p>These concepts are also called Security Goals, when we want to apply them to our systems. We can achieve these goals by using Cryptographic Primitives.</p>
-
 <p>Cryptographic primitives are well-established, low-level cryptographic algorithms that are frequently used to build cryptographic protocols for computer security systems. These routines include, but are not limited to, one-way hash functions and encryption functions.</p>
-
 <p>In the table below, we can see the Security Goals that some Cryptographic Primitives can provide. In this article I will be covering examples of HMAC and Digital Signatures.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">    Cryptographic Primitive | Hash |    MAC    | Digital Signature
     Security Goal           |      |           | 
     ------------------------+------+-----------+------------------
@@ -239,133 +232,44 @@
     ------------------------+------+-----------+------------------
     Kind of keys            | none | symmetric | asymmetric
                             |      |    keys   |    keys</code></pre></div>
-
 <h2 id="definition-of-mac">Definition of MAC</h2>
-
 <p>A Message authentication Code (MAC) is a short piece of information used to authenticate a message. In other words, it&rsquo;s used to confirm that the message came from an expected sender and has not been changed without your knowledge. The MAC value ensures both the <strong>integrity</strong> and <strong>authenticity</strong> of a message, by regenerating it in the recipient using a shared secret <strong>key (K)</strong>.</p>
-
-<p><img src="/imgs/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/mac.png" alt="MAC" /></p>
-
+<p><img src="/imgs/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/mac.png" alt="MAC"></p>
 <h2 id="definition-of-hmac">Definition of HMAC</h2>
-
 <p>A <strong>Keyed-Hash Message Authentication Code</strong> (HMAC) is a MAC obtained by running a cryptographic hash function (like MD5, SHA1 or SHA256) over the data and a shared secret key.</p>
-
 <p>The main difference between MAC and HMAC is that MAC is a tag or a piece of information that helps to authenticate a message, while HMAC is a special type of MAC with a <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">cryptographic hash function</a> and a secret key.</p>
-
 <p>HMACs are almost similar to digital signatures. Both enforce <strong>integrity</strong> and <strong>authenticity</strong>. Both use cryptographic keys, and both use hash functions. The main difference is that digital signatures use asymmetric keys, while HMACs use symmetric keys.</p>
-
 <p>HMACs may not enforce <strong>non-repudiation</strong> because the sender and the receiver share the same secret key.</p>
-
 <h2 id="definition-of-digital-signature">Definition of Digital Signature</h2>
-
 <p>A digital signature is created with a private key, and verified with the corresponding public key of an asymmetric key-pair. Only the holder of the private key can create this signature.</p>
-
 <p>The public keys are available to everyone. The private key is known only by the owner and can’t be derived from a public key. When something is encrypted with the public key, only the corresponding private key can decrypt it. In addition, when something is encrypted with the private key, then anyone can verify it with the corresponding public key.</p>
-
-<h2 id="example-of-hmac-sha256-with-node-js">Example of HMAC-SHA256 with <strong>node.js</strong></h2>
-
+<h2 id="example-of-hmac-sha256-with-nodejs">Example of HMAC-SHA256 with <strong>node.js</strong></h2>
 <p>Due to some HMAC&rsquo;s properties (especially its cryptographic strength), it&rsquo;s highly dependent on its underlying hash function, a particular HMAC is usually identified based on that hash function. So we have HMAC algorithms that go by the names of HMAC-MD5, HMAC-SHA1, or HMAC-SHA256. This last one is cryptographically stronger than the others, so in this article, I&rsquo;ll provide an example of HMAC using SHA256 algorithm. See it below:</p>
-
 <h3 id="creating-a-hash-for-the-message">Creating a hash for the message</h3>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#75715e">// get_hmac.js
-</span><span style="color:#75715e"></span>    
-    <span style="color:#75715e">// The crypto module provides cryptographic functionality that includes
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// a set of wrappers for OpenSSL&#39;s hash, HMAC, cipher, decipher, sign, 
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// and verify functions.
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createHmac</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;crypto&#34;</span>;
-    
-    <span style="color:#75715e">// The shared secret should be an extremely complex string, 
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// in order to avoid brute force attacks
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sharedSecret</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;I\&#39;m a very hard random string&#39;</span>;
-    
-    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getHmac</span>(<span style="color:#a6e22e">body</span>) {
-    	<span style="color:#75715e">// The object is converted to a string because the update method 
-</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// only accepts string, Buffer, TypedArray or DataView as types.
-</span><span style="color:#75715e"></span>    	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">body</span>);
-    	
-    	<span style="color:#75715e">// 
-</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// crypto.createHmac(algorithm, key[, options]): this method creates the HMAC.
-</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// In our example, we use the algorithm SHA256 that will combine the shared
-</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// secret with the input message and will return a hash digested as a base64 
-</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// string.
-</span><span style="color:#75715e"></span>    	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hmac</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createHmac</span>(<span style="color:#e6db74">&#39;SHA256&#39;</span>, <span style="color:#a6e22e">sharedSecret</span>)
-    	  .<span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">message</span>, <span style="color:#e6db74">&#39;utf-8&#39;</span>)
-    	  .<span style="color:#a6e22e">digest</span>(<span style="color:#e6db74">&#39;base64&#39;</span>);
-    	
-    	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">hmac</span>;
-    }
-    
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> {
-    	<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;foo&#39;</span>,
-    	<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">24</span>
-    };
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hmac</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getHmac</span>(<span style="color:#a6e22e">body</span>);
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`HMAC generated: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">hmac</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
-</code></pre></div>
+<script type="application/javascript" src="https://gist.github.com/glaubermagal/e0a7378c4136a733b5e4e954bafac753.js"></script>
 
 <h3 id="validating-the-message">Validating the message</h3>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#75715e">// validate_hmac.js
-</span><span style="color:#75715e"></span>    
-    <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createHmac</span>, <span style="color:#a6e22e">timingSafeEqual</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;crypto&#34;</span>;
-    
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sharedSecret</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;I\&#39;m a very hard random string&#39;</span>;
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hmac</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;use the HMAC generated with the getHmac method&gt;&#39;</span>;
-    
-    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">validateHmac</span>(<span style="color:#a6e22e">hmac</span>, <span style="color:#a6e22e">body</span>) {
-    	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">body</span>);
-    	
-    	<span style="color:#75715e">// Now we convert the hashes to Buffer because the timingSafeEqual needs them
-</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// as types Buffer, TypedArray or DataView
-</span><span style="color:#75715e"></span>    	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">providedHmac</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Buffer</span>.<span style="color:#a6e22e">from</span>(<span style="color:#a6e22e">hmac</span>, <span style="color:#e6db74">&#39;utf-8&#39;</span>);
-    	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">generatedHash</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Buffer</span>.<span style="color:#a6e22e">from</span>(
-    	  <span style="color:#a6e22e">createHmac</span>(<span style="color:#e6db74">&#39;SHA256&#39;</span>, <span style="color:#a6e22e">sharedSecret</span>).<span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">message</span>).<span style="color:#a6e22e">digest</span>(<span style="color:#e6db74">&#39;base64&#39;</span>),
-    	  <span style="color:#e6db74">&#39;utf-8&#39;</span>,
-    	);
-    	
-    	<span style="color:#75715e">// This method operates with secret data in a way that does not leak 
-</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// information about that data through how long it takes to perform 
-</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// the operation. 
-</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// You could compare the hashes as string, but you should compare timing in
-</span><span style="color:#75715e"></span>    	<span style="color:#75715e">// order to make your code safer.
-</span><span style="color:#75715e"></span>    	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">timingSafeEqual</span>(<span style="color:#a6e22e">generatedHash</span>, <span style="color:#a6e22e">providedHmac</span>)) {
-    		<span style="color:#75715e">// The message was changed, the HMAC is invalid or the timing isn&#39;t safe
-</span><span style="color:#75715e"></span>    		<span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;Invalid request&#39;</span>);
-    	}
-    }
-    
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> {
-    	<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;foo&#39;</span>,
-    	<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">24</span>
-    };
-    
-    <span style="color:#66d9ef">try</span> {
-    	<span style="color:#a6e22e">validateHmac</span>(<span style="color:#a6e22e">hmac</span>, <span style="color:#a6e22e">body</span>);
-    	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Valid HMAC&#39;</span>);
-    } <span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">error</span>) {
-    	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">`Error: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">error</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
-    }
-</code></pre></div>
+<script type="application/javascript" src="https://gist.github.com/glaubermagal/ec4bdbbea958d69b49d60b8a9d760a4f.js"></script>
 
 <p>Apparently, just comparing the two hashes as strings would be enough, but you should compare the time of generation of hashes in order to avoid timing attacks. For more information about this sort of issue, see <a href="https://codahale.com/a-lesson-in-timing-attacks/">Coda Hale’s blog post</a> about the timing attacks on KeyCzar and Java’s <code>MessageDigest.isEqual()</code>.</p>
-
 <p>Suppose that a client is sending a message to a server, but the message or the hash was modified during its transmission, configuring a <a href="https://www.cloudflare.com/learning/security/threats/man-in-the-middle-attack/">man-in-the-middle attack</a>. In this case, the server should detect the possible attack and reject the request.</p>
-
+<p><strong>Now, let&rsquo;s play!</strong></p>
+<p>This will generate the HMAC of the <code>body</code> object with the <code>sharedSecret</code>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    npm run get_hmac
+    
+    // $ HMAC generated: &lt;COPY_THIS_HMAC&gt;</code></pre></div></p>
+<p>This will validate the HMAC provided by the <code>get_hmac</code> method. Try changing the provided HMAC, the <code>body</code> or the <code>sharedSecret</code> and see what happens!
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    npm run --hmac<span style="color:#f92672">=</span>&lt;PASTE_THE_HMAC_HERE&gt; validate_hmac
+    
+    // $ Valid HMAC | Error: ...</code></pre></div></p>
 <p>This code is also available on <a href="https://github.com/glaubermagal/hmac-example">this github repo</a>.</p>
-
-<h2 id="example-of-digital-signature-with-node-js">Example of Digital Signature with <strong>node.js</strong></h2>
-
+<h2 id="example-of-digital-signature-with-nodejs">Example of Digital Signature with <strong>node.js</strong></h2>
 <p>Digital Signatures work with asymmetric key-pair, one private and others public. In the example below, we will be generating the keys with <a href="https://github.com/openssl/openssl">OpenSSL</a>.</p>
-
 <p>Create a folder for your project and create a <code>/keys</code> folder on its root. After that, generate the key-pair. You can follow some simple examples in the lines below:</p>
-
 <p><strong>Creating a private key on keys folder</strong>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -pkeyopt rsa_keygen_pubexp:3 -out private_key.pem</code></pre></div></p>
-
 <p><strong>Creating a public key on keys folder</strong>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    openssl pkey -in private_key.pem -out public_key.pem -pubout</code></pre></div></p>
-
 <p><strong>Create some document in the project root (follow an artistic example below)</strong>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">    IMITATION
     
@@ -391,95 +295,30 @@
     With a sigh as it passed on:
     I care not though it perish
     With a thought I then did cherish.</code></pre></div></p>
-
 <p>The code below is responsible by creating a digital signature from your document using your private key.</p>
-
 <h3 id="sign-the-document">Sign the document</h3>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#75715e">// sign.js
-</span><span style="color:#75715e"></span>    
-    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">crypto</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;crypto&#39;</span>
-    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">fs</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;fs&#39;</span>
-    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">path</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;path&#39;</span>
-    
-    <span style="color:#75715e">// Read the private key
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">private_key</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#e6db74">&#39;keys/private_key.pem&#39;</span>, <span style="color:#e6db74">&#39;utf-8&#39;</span>);
-    
-    <span style="color:#75715e">// Read document to be signed
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> document <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;document.txt&#39;</span>));
-    
-    <span style="color:#75715e">// Create sign
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">signer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">createSign</span>(<span style="color:#e6db74">&#39;RSA-SHA256&#39;</span>);
-    <span style="color:#a6e22e">signer</span>.<span style="color:#a6e22e">write</span>(document);
-    <span style="color:#a6e22e">signer</span>.<span style="color:#a6e22e">end</span>();
-    
-    <span style="color:#75715e">// Sign the document with the private key
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">signature</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">signer</span>.<span style="color:#a6e22e">sign</span>(<span style="color:#a6e22e">private_key</span>, <span style="color:#e6db74">&#39;base64&#39;</span>)
-    
-    <span style="color:#75715e">// Write signature to a file
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">writeFileSync</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;signature.txt&#39;</span>), <span style="color:#a6e22e">signature</span>);
-    
-    <span style="color:#75715e">// Output Digital Signature
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Digital Signature: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">signature</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
-</code></pre></div>
+<script type="application/javascript" src="https://gist.github.com/glaubermagal/b4bd5ea9d8229fbeb4e55c70ff980308.js"></script>
 
 <p>The code below is responsible by validating the authenticity, integrity and non-repudiation of your  document using your public key.</p>
-
 <h3 id="validating-the-document">Validating the document</h3>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#75715e">// verify.js
-</span><span style="color:#75715e"></span>    
-    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">crypto</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;crypto&#39;</span>
-    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">fs</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;fs&#39;</span>
-    <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">path</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;path&#39;</span>
-    
-    <span style="color:#75715e">// Read the public key
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">public_key</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#e6db74">&#39;keys/public_key.pem&#39;</span>, <span style="color:#e6db74">&#39;utf-8&#39;</span>);
-    
-    <span style="color:#75715e">// Get the signature
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">signature</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;signature.txt&#39;</span>), <span style="color:#e6db74">&#39;utf-8&#39;</span>);
-    
-    <span style="color:#75715e">// File to be verified
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> document <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;document.txt&#39;</span>));
-    
-    <span style="color:#75715e">// Create a verification sign
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">verifier</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">crypto</span>.<span style="color:#a6e22e">createVerify</span>(<span style="color:#e6db74">&#39;RSA-SHA256&#39;</span>);
-    <span style="color:#a6e22e">verifier</span>.<span style="color:#a6e22e">write</span>(document);
-    <span style="color:#a6e22e">verifier</span>.<span style="color:#a6e22e">end</span>();
-    
-    <span style="color:#75715e">// Match file signature with the public key against the signature provided
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">verifier</span>.<span style="color:#a6e22e">verify</span>(<span style="color:#a6e22e">public_key</span>, <span style="color:#a6e22e">signature</span>, <span style="color:#e6db74">&#39;base64&#39;</span>);
-    
-    <span style="color:#75715e">// Displays if it worked or not!
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Digital Signature Verification: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">result</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
-</code></pre></div>
+<script type="application/javascript" src="https://gist.github.com/glaubermagal/c8f2330ed5176acabbc38dfa832e8db4.js"></script>
 
 <p><strong>Now, let&rsquo;s play!</strong></p>
-
 <p>This will write the signature of your document in the file signature.txt:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    npm run sign
     
     // $ Digital Signature: ...</code></pre></div></p>
-
 <p>This will verify the signature of your document. Try changing the content of the document or the signature and see what happens:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    npm run verify
     
     // $ Digital Signature Verification: <span style="color:#f92672">(</span>true or false<span style="color:#f92672">)</span></code></pre></div></p>
-
 <p>You can take a look on these code on <a href="https://github.com/glaubermagal/digital-signature-example">my github repo</a>.</p>
-
 <h2 id="what-cryptographic-primitive-should-you-use">What Cryptographic Primitive should you use?</h2>
-
 <p>This depends on the context. Sometimes you will communicate between only two servers on a private network and there&rsquo;s not the necessity of validating <strong>non-repudiation</strong>, so a simple HMAC validation should be enough. Sometimes your system will be shared by an uncountable number of clients and servers, so in this case you might be interested in enforcing the <strong>non-repudiation,</strong> instead of just sharing the secret key with anyone.</p>
-
 <h2 id="conclusion">Conclusion</h2>
-
 <p>This is a basic explanation about how to implement some Information Security Goals using some known Cryptographic Primitives using node.js. You should be aware that there are many kinds of advanced attacks that should be prevented by using other security layers and strategies.</p>
-
 <p>Thanks for reading! :)</p>
-
 <p><strong>References</strong></p>
-
 <p><a href="https://en.wikipedia.org/wiki/Message_authentication_code">https://en.wikipedia.org/wiki/Message_authentication_code</a>
 <a href="https://codahale.com/a-lesson-in-timing-attacks/">https://codahale.com/a-lesson-in-timing-attacks/</a>
 <a href="https://crypto.stackexchange.com/questions/5646/what-are-the-differences-between-a-digital-signature-a-mac-and-a-hash?newreg=90481a425fb14ff0a7250cde651e77e8">https://crypto.stackexchange.com/questions/5646/what-are-the-differences-between-a-digital-signature-a-mac-and-a-hash?newreg=90481a425fb14ff0a7250cde651e77e8</a>
