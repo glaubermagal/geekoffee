@@ -107,7 +107,7 @@ Due to some HMAC's properties (especially its cryptographic strength), it's high
     import { createHmac, timingSafeEqual } from "crypto";
     
     const sharedSecret = 'I\'m a very hard random string';
-    const hmac = '<use the HMAC generated with the getHmac method>';
+    const hmac = process.env.npm_config_hmac;
     
     function validateHmac(hmac, body) {
     	const message = JSON.stringify(body);
@@ -147,6 +147,23 @@ Due to some HMAC's properties (especially its cryptographic strength), it's high
 Apparently, just comparing the two hashes as strings would be enough, but you should compare the time of generation of hashes in order to avoid timing attacks. For more information about this sort of issue, see [Coda Hale’s blog post](https://codahale.com/a-lesson-in-timing-attacks/) about the timing attacks on KeyCzar and Java’s `MessageDigest.isEqual()`.
 
 Suppose that a client is sending a message to a server, but the message or the hash was modified during its transmission, configuring a [man-in-the-middle attack](https://www.cloudflare.com/learning/security/threats/man-in-the-middle-attack/). In this case, the server should detect the possible attack and reject the request.
+
+
+**Now, let's play!**
+
+This will generate the HMAC of the `body` object with the `sharedSecret`
+{{< highlight bash >}}
+    npm run get_hmac
+    
+    // $ HMAC generated: <COPY_THIS_HMAC>
+{{< / highlight >}}
+
+This will validate the HMAC provided by the `get_hmac` method. Try changing the provided HMAC, the `body` or the `sharedSecret` and see what happens!
+{{< highlight bash >}}
+    npm run --hmac=<PASTE_THE_HMAC_HERE> validate_hmac
+    
+    // $ Valid HMAC | Error: ...
+{{< / highlight >}}
 
 This code is also available on [this github repo](https://github.com/glaubermagal/hmac-example).
 
