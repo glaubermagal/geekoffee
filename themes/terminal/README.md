@@ -17,6 +17,7 @@
 - [How to edit the theme](#how-to-edit-the-theme)
 - [How to contribute](#how-to-contribute)
 - [Terminal theme user?](#terminal-theme-user)
+- [Sponsoring](#sponsoring)
 - [Licence](#licence)
 
 ## Features
@@ -37,11 +38,11 @@
 
 A custom syntax highlighting based on PrismJS. All you need to do is to wrap you code like this:
 
-<pre>
+````
 ```html
   // your code here
 ```
-</pre>
+````
 
 **Supported languages**: bash/shell, css, clike, javascript, apacheconf, actionscript, applescript, c, csharp, cpp, coffeescript, ruby, csp, css-extras, diff, django, docker, elixir, elm, markup-templating, erlang, fsharp, flow, git, go, graphql, less, handlebars, haskell, http, java, json, kotlin, latex, markdown, makefile, objectivec, ocaml, perl, php, php-extras, r, sql, processing, scss, python, jsx, typescript, toml, reason, textile, rust, sass, stylus, scheme, pug, swift, yaml, haml, twig, tsx, vim, visual-basic, wasm.
 
@@ -65,7 +66,7 @@ $ git submodule add https://github.com/panr/hugo-theme-terminal.git themes/termi
 
 The theme doesn't require any advanced configuration. Just copy:
 
-```
+```toml
 baseurl = "/"
 languageCode = "en-us"
 theme = "terminal"
@@ -74,19 +75,32 @@ paginate = 5
 [params]
   # dir name of your blog content (default is `content/posts`)
   contentTypeName = "posts"
+
   # ["orange", "blue", "red", "green", "pink"]
   themeColor = "orange"
+
   # if you set this to 0, only submenu trigger will be visible
   showMenuItems = 2
+
+  # show selector to switch language
+  showLanguageSelector = false
+
   # set theme to full screen width
   fullWidthTheme = false
+
   # center theme with default width
   centerTheme = false
+
   # set a custom favicon (default is a `themeColor` square)
   # favicon = "favicon.ico"
 
+  # set all headings to their default size (depending on browser settings)
+  # it's set to `true` by default
+  # oneHeadingSize = false
+
 [languages]
   [languages.en]
+    languageName = "English"
     title = "Terminal"
     subtitle = "A simple, retro theme for Hugo"
     keywords = ""
@@ -116,12 +130,12 @@ to `config.toml` file in your Hugo root directory and change params fields. In c
 
 ## Post archetype
 
-See the basic `post` file params supported by the theme — https://github.com/panr/hugo-theme-terminal/blob/master/archetypes/post.md
+See the basic `post` file params supported by the theme — https://github.com/panr/hugo-theme-terminal/blob/master/archetypes/posts.md
 
 ## Add-ons
 
-- **Comments** — for adding comments to your blog posts please take a look at `layouts/partials/comments.html` https://github.com/panr/hugo-theme-terminal/blob/master/layouts/partials/comments.html.  
-- **Extended Head** — please take a look at `layouts/partials/extended_head.html` https://github.com/panr/hugo-theme-terminal/blob/master/layouts/partials/extended_head.html  
+- **Comments** — for adding comments to your blog posts please take a look at `layouts/partials/comments.html` https://github.com/panr/hugo-theme-terminal/blob/master/layouts/partials/comments.html.
+- **Extended Head** — please take a look at `layouts/partials/extended_head.html` https://github.com/panr/hugo-theme-terminal/blob/master/layouts/partials/extended_head.html
 - **Extended Footer** — please take a look at `layouts/partials/extended_footer.html` https://github.com/panr/hugo-theme-terminal/blob/master/layouts/partials/extended_footer.html
 
 ## How to run your site
@@ -160,7 +174,13 @@ If you spot any bugs, please use [Issue Tracker](https://github.com/panr/hugo-th
 
 I'd be happy to know more about you and what you are doing. If you want to share it, please make a contribution and [add your site to the list](https://github.com/panr/hugo-theme-terminal/blob/master/USERS.md)! 🤗
 
-## Licence
+## Sponsoring
+
+If you like my work and want to support the development of the project, now you can! Just:
+
+<a href="https://www.buymeacoffee.com/panr" target="_blank"><img src="https://res.cloudinary.com/panr/image/upload/v1579374705/buymeacoffee_y6yvov.svg" alt="Buy Me A Coffee" ></a>
+
+## License
 
 Copyright © 2019 Radosław Kozieł ([@panr](https://twitter.com/panr))
 
