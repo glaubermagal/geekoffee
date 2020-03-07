@@ -62,87 +62,10 @@ The public keys are available to everyone. The private key is known only by the 
 Due to some HMAC's properties (especially its cryptographic strength), it's highly dependent on its underlying hash function, a particular HMAC is usually identified based on that hash function. So we have HMAC algorithms that go by the names of HMAC-MD5, HMAC-SHA1, or HMAC-SHA256. This last one is cryptographically stronger than the others, so in this article, I'll provide an example of HMAC using SHA256 algorithm. See it below:
 
 ### Creating a hash for the message
-{{< highlight javascript >}}
-    // get_hmac.js
-    
-    // The crypto module provides cryptographic functionality that includes
-    // a set of wrappers for OpenSSL's hash, HMAC, cipher, decipher, sign, 
-    // and verify functions.
-    import { createHmac } from "crypto";
-    
-    // The shared secret should be an extremely complex string, 
-    // in order to avoid brute force attacks
-    const sharedSecret = 'I\'m a very hard random string';
-    
-    function getHmac(body) {
-    	// The object is converted to a string because the update method 
-    	// only accepts string, Buffer, TypedArray or DataView as types.
-    	const message = JSON.stringify(body);
-    	
-    	// 
-    	// crypto.createHmac(algorithm, key[, options]): this method creates the HMAC.
-    	// In our example, we use the algorithm SHA256 that will combine the shared
-    	// secret with the input message and will return a hash digested as a base64 
-    	// string.
-    	const hmac = createHmac('SHA256', sharedSecret)
-    	  .update(message, 'utf-8')
-    	  .digest('base64');
-    	
-    	return hmac;
-    }
-    
-    const body = {
-    	name: 'foo',
-    	age: 24
-    };
-    const hmac = getHmac(body);
-    console.log(`HMAC generated: ${hmac}`);
-{{< / highlight >}}
-
+{{< gist glaubermagal e0a7378c4136a733b5e4e954bafac753 >}}
 
 ### Validating the message
-{{< highlight javascript >}}
-    // validate_hmac.js
-    
-    import { createHmac, timingSafeEqual } from "crypto";
-    
-    const sharedSecret = 'I\'m a very hard random string';
-    const hmac = process.env.npm_config_hmac;
-    
-    function validateHmac(hmac, body) {
-    	const message = JSON.stringify(body);
-    	
-    	// Now we convert the hashes to Buffer because the timingSafeEqual needs them
-    	// as types Buffer, TypedArray or DataView
-    	const providedHmac = Buffer.from(hmac, 'utf-8');
-    	const generatedHash = Buffer.from(
-    	  createHmac('SHA256', sharedSecret).update(message).digest('base64'),
-    	  'utf-8',
-    	);
-    	
-    	// This method operates with secret data in a way that does not leak 
-    	// information about that data through how long it takes to perform 
-    	// the operation. 
-    	// You could compare the hashes as string, but you should compare timing in
-    	// order to make your code safer.
-    	if(!timingSafeEqual(generatedHash, providedHmac)) {
-    		// The message was changed, the HMAC is invalid or the timing isn't safe
-    		throw new Error('Invalid request');
-    	}
-    }
-    
-    const body = {
-    	name: 'foo',
-    	age: 24
-    };
-    
-    try {
-    	validateHmac(hmac, body);
-    	console.log('Valid HMAC');
-    } catch(error) {
-    	console.error(`Error: ${error}`);
-    }
-{{< / highlight >}}
+{{< gist glaubermagal ec4bdbbea958d69b49d60b8a9d760a4f >}}
 
 Apparently, just comparing the two hashes as strings would be enough, but you should compare the time of generation of hashes in order to avoid timing attacks. For more information about this sort of issue, see [Coda Hale’s blog post](https://codahale.com/a-lesson-in-timing-attacks/) about the timing attacks on KeyCzar and Java’s `MessageDigest.isEqual()`.
 
@@ -215,65 +138,13 @@ The code below is responsible by creating a digital signature from your document
 
 
 ### Sign the document
-{{< highlight javascript >}}
-    // sign.js
-    
-    import * as crypto from 'crypto'
-    import * as fs from 'fs'
-    import * as path from 'path'
-    
-    // Read the private key
-    const private_key = fs.readFileSync('keys/private_key.pem', 'utf-8');
-    
-    // Read document to be signed
-    const document = fs.readFileSync(path.resolve(__dirname, 'document.txt'));
-    
-    // Create sign
-    const signer = crypto.createSign('RSA-SHA256');
-    signer.write(document);
-    signer.end();
-    
-    // Sign the document with the private key
-    const signature = signer.sign(private_key, 'base64')
-    
-    // Write signature to a file
-    fs.writeFileSync(path.resolve(__dirname, 'signature.txt'), signature);
-    
-    // Output Digital Signature
-    console.log(`Digital Signature: ${signature}`);
-{{< / highlight >}}
+{{< gist glaubermagal b4bd5ea9d8229fbeb4e55c70ff980308 >}}
 
 The code below is responsible by validating the authenticity, integrity and non-repudiation of your  document using your public key.
 
 
 ### Validating the document
-{{< highlight javascript >}}
-    // verify.js
-    
-    import * as crypto from 'crypto'
-    import * as fs from 'fs'
-    import * as path from 'path'
-    
-    // Read the public key
-    const public_key = fs.readFileSync('keys/public_key.pem', 'utf-8');
-    
-    // Get the signature
-    const signature = fs.readFileSync(path.resolve(__dirname, 'signature.txt'), 'utf-8');
-    
-    // File to be verified
-    const document = fs.readFileSync(path.resolve(__dirname, 'document.txt'));
-    
-    // Create a verification sign
-    const verifier = crypto.createVerify('RSA-SHA256');
-    verifier.write(document);
-    verifier.end();
-    
-    // Match file signature with the public key against the signature provided
-    const result = verifier.verify(public_key, signature, 'base64');
-    
-    // Displays if it worked or not!
-    console.log(`Digital Signature Verification: ${result}`);
-{{< / highlight >}}
+{{< gist glaubermagal c8f2330ed5176acabbc38dfa832e8db4 >}}
 
 **Now, let's play!**
 
