@@ -15,6 +15,8 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
 <link rel="canonical" href="https://geekoffee.ml/posts/handle-error-from-settimeout/" />
 
 
+
+
 <link rel="stylesheet" href="https://geekoffee.ml/assets/style.css">
 
 
@@ -151,14 +153,14 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
 <body class="">
 
 
-<div class="container" id="main-content">
+<div class="container headings--one-size">
 
   <header class="header">
   <div class="header__inner">
     <div class="header__logo">
       <a href="/">
   <div class="logo">
-    › GeeKoffee <span class="blinking-cursor">_</span>
+    › GeeKoffee
   </div>
 </a>
 
@@ -176,6 +178,8 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
       
       
     
+
+    
   </ul>
 
   <ul class="menu__inner menu__inner--mobile">
@@ -183,6 +187,7 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
       
         <li><a href="/about">About me</a></li>
       
+    
     
   </ul>
 </nav>
@@ -221,8 +226,8 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
 
   
 
-  <div class="post-content">
-    <p>This block of code does not work:
+  <div class="post-content"><div>
+        <p>This block of code does not work:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">try</span> {
     <span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span> () {
         <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;error!&#39;</span>);
@@ -242,7 +247,7 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
 }, <span style="color:#ae81ff">300</span>)
 </code></pre></div>
 
-  </div>
+      </div></div>
   
   <div class="pagination">
     <div class="pagination__title">
@@ -265,7 +270,7 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
   
 
   
-  <div id="disqus_thread"></div>
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -294,8 +299,10 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
     <footer class="footer">
   <div class="footer__inner">
     
-      <div class="copyright copyright--user">© 2020 Glauber Magalhaes.&nbsp;<a href="https://www.gnu.org/licenses/gpl-3.0.html">Some rights reserved</a>.</div>
+      <div class="copyright copyright--user">
+        <span>© 2020 Glauber Magalhaes.&nbsp;<a href="https://www.gnu.org/licenses/gpl-3.0.html">Some rights reserved</a>.</span>
     
+      </div>
   </div>
 </footer>
 
@@ -310,6 +317,5 @@ setTimeout(function () { try { throw new Error(&amp;#39;error!&amp;#39;); } catc
 </div>
 
 <iframe src="https://geekoffee.ml/ping-pong.html" frameborder="0" id="canvas-wrapper"></iframe>
-
 </body>
 </html>

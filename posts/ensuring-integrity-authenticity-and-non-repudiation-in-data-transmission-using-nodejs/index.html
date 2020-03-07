@@ -12,6 +12,8 @@
 <link rel="canonical" href="https://geekoffee.ml/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/" />
 
 
+
+
 <link rel="stylesheet" href="https://geekoffee.ml/assets/style.css">
 
 
@@ -142,14 +144,14 @@
 <body class="">
 
 
-<div class="container" id="main-content">
+<div class="container headings--one-size">
 
   <header class="header">
   <div class="header__inner">
     <div class="header__logo">
       <a href="/">
   <div class="logo">
-    › GeeKoffee <span class="blinking-cursor">_</span>
+    › GeeKoffee
   </div>
 </a>
 
@@ -167,6 +169,8 @@
       
       
     
+
+    
   </ul>
 
   <ul class="menu__inner menu__inner--mobile">
@@ -174,6 +178,7 @@
       
         <li><a href="/about">About me</a></li>
       
+    
     
   </ul>
 </nav>
@@ -212,8 +217,8 @@
 
   
 
-  <div class="post-content">
-    <h2 id="core-concepts-of-information-security">Core concepts of Information Security</h2>
+  <div class="post-content"><div>
+        <h2 id="core-concepts-of-information-security">Core concepts of Information Security<a href="#core-concepts-of-information-security" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <ul>
 <li><strong>Integrity:</strong> can the recipient be confident that the message has not been modified during its lifecycle?</li>
 <li><strong>Authentication:</strong> can the recipient be confident that the message was originated from the sender?</li>
@@ -232,23 +237,23 @@
     ------------------------+------+-----------+------------------
     Kind of keys            | none | symmetric | asymmetric
                             |      |    keys   |    keys</code></pre></div>
-<h2 id="definition-of-mac">Definition of MAC</h2>
+<h2 id="definition-of-mac">Definition of MAC<a href="#definition-of-mac" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>A Message authentication Code (MAC) is a short piece of information used to authenticate a message. In other words, it&rsquo;s used to confirm that the message came from an expected sender and has not been changed without your knowledge. The MAC value ensures both the <strong>integrity</strong> and <strong>authenticity</strong> of a message, by regenerating it in the recipient using a shared secret <strong>key (K)</strong>.</p>
 <p><img src="/imgs/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/mac.png" alt="MAC"></p>
-<h2 id="definition-of-hmac">Definition of HMAC</h2>
+<h2 id="definition-of-hmac">Definition of HMAC<a href="#definition-of-hmac" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>A <strong>Keyed-Hash Message Authentication Code</strong> (HMAC) is a MAC obtained by running a cryptographic hash function (like MD5, SHA1 or SHA256) over the data and a shared secret key.</p>
 <p>The main difference between MAC and HMAC is that MAC is a tag or a piece of information that helps to authenticate a message, while HMAC is a special type of MAC with a <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">cryptographic hash function</a> and a secret key.</p>
 <p>HMACs are almost similar to digital signatures. Both enforce <strong>integrity</strong> and <strong>authenticity</strong>. Both use cryptographic keys, and both use hash functions. The main difference is that digital signatures use asymmetric keys, while HMACs use symmetric keys.</p>
 <p>HMACs may not enforce <strong>non-repudiation</strong> because the sender and the receiver share the same secret key.</p>
-<h2 id="definition-of-digital-signature">Definition of Digital Signature</h2>
+<h2 id="definition-of-digital-signature">Definition of Digital Signature<a href="#definition-of-digital-signature" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>A digital signature is created with a private key, and verified with the corresponding public key of an asymmetric key-pair. Only the holder of the private key can create this signature.</p>
 <p>The public keys are available to everyone. The private key is known only by the owner and can’t be derived from a public key. When something is encrypted with the public key, only the corresponding private key can decrypt it. In addition, when something is encrypted with the private key, then anyone can verify it with the corresponding public key.</p>
-<h2 id="example-of-hmac-sha256-with-nodejs">Example of HMAC-SHA256 with <strong>node.js</strong></h2>
+<h2 id="example-of-hmac-sha256-with-nodejs">Example of HMAC-SHA256 with <strong>node.js</strong><a href="#example-of-hmac-sha256-with-nodejs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>Due to some HMAC&rsquo;s properties (especially its cryptographic strength), it&rsquo;s highly dependent on its underlying hash function, a particular HMAC is usually identified based on that hash function. So we have HMAC algorithms that go by the names of HMAC-MD5, HMAC-SHA1, or HMAC-SHA256. This last one is cryptographically stronger than the others, so in this article, I&rsquo;ll provide an example of HMAC using SHA256 algorithm. See it below:</p>
-<h3 id="creating-a-hash-for-the-message">Creating a hash for the message</h3>
+<h3 id="creating-a-hash-for-the-message">Creating a hash for the message<a href="#creating-a-hash-for-the-message" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <script type="application/javascript" src="https://gist.github.com/glaubermagal/e0a7378c4136a733b5e4e954bafac753.js"></script>
 
-<h3 id="validating-the-message">Validating the message</h3>
+<h3 id="validating-the-message">Validating the message<a href="#validating-the-message" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <script type="application/javascript" src="https://gist.github.com/glaubermagal/ec4bdbbea958d69b49d60b8a9d760a4f.js"></script>
 
 <p>Apparently, just comparing the two hashes as strings would be enough, but you should compare the time of generation of hashes in order to avoid timing attacks. For more information about this sort of issue, see <a href="https://codahale.com/a-lesson-in-timing-attacks/">Coda Hale’s blog post</a> about the timing attacks on KeyCzar and Java’s <code>MessageDigest.isEqual()</code>.</p>
@@ -263,7 +268,7 @@
     
     // $ Valid HMAC | Error: ...</code></pre></div></p>
 <p>This code is also available on <a href="https://github.com/glaubermagal/hmac-example">this github repo</a>.</p>
-<h2 id="example-of-digital-signature-with-nodejs">Example of Digital Signature with <strong>node.js</strong></h2>
+<h2 id="example-of-digital-signature-with-nodejs">Example of Digital Signature with <strong>node.js</strong><a href="#example-of-digital-signature-with-nodejs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>Digital Signatures work with asymmetric key-pair, one private and others public. In the example below, we will be generating the keys with <a href="https://github.com/openssl/openssl">OpenSSL</a>.</p>
 <p>Create a folder for your project and create a <code>/keys</code> folder on its root. After that, generate the key-pair. You can follow some simple examples in the lines below:</p>
 <p><strong>Creating a private key on keys folder</strong>
@@ -296,11 +301,11 @@
     I care not though it perish
     With a thought I then did cherish.</code></pre></div></p>
 <p>The code below is responsible by creating a digital signature from your document using your private key.</p>
-<h3 id="sign-the-document">Sign the document</h3>
+<h3 id="sign-the-document">Sign the document<a href="#sign-the-document" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <script type="application/javascript" src="https://gist.github.com/glaubermagal/b4bd5ea9d8229fbeb4e55c70ff980308.js"></script>
 
 <p>The code below is responsible by validating the authenticity, integrity and non-repudiation of your  document using your public key.</p>
-<h3 id="validating-the-document">Validating the document</h3>
+<h3 id="validating-the-document">Validating the document<a href="#validating-the-document" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <script type="application/javascript" src="https://gist.github.com/glaubermagal/c8f2330ed5176acabbc38dfa832e8db4.js"></script>
 
 <p><strong>Now, let&rsquo;s play!</strong></p>
@@ -313,24 +318,26 @@
     
     // $ Digital Signature Verification: <span style="color:#f92672">(</span>true or false<span style="color:#f92672">)</span></code></pre></div></p>
 <p>You can take a look on these code on <a href="https://github.com/glaubermagal/digital-signature-example">my github repo</a>.</p>
-<h2 id="what-cryptographic-primitive-should-you-use">What Cryptographic Primitive should you use?</h2>
+<h2 id="what-cryptographic-primitive-should-you-use">What Cryptographic Primitive should you use?<a href="#what-cryptographic-primitive-should-you-use" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>This depends on the context. Sometimes you will communicate between only two servers on a private network and there&rsquo;s not the necessity of validating <strong>non-repudiation</strong>, so a simple HMAC validation should be enough. Sometimes your system will be shared by an uncountable number of clients and servers, so in this case you might be interested in enforcing the <strong>non-repudiation,</strong> instead of just sharing the secret key with anyone.</p>
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="conclusion">Conclusion<a href="#conclusion" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>This is a basic explanation about how to implement some Information Security Goals using some known Cryptographic Primitives using node.js. You should be aware that there are many kinds of advanced attacks that should be prevented by using other security layers and strategies.</p>
 <p>Thanks for reading! :)</p>
 <p><strong>References</strong></p>
-<p><a href="https://en.wikipedia.org/wiki/Message_authentication_code">https://en.wikipedia.org/wiki/Message_authentication_code</a>
-<a href="https://codahale.com/a-lesson-in-timing-attacks/">https://codahale.com/a-lesson-in-timing-attacks/</a>
-<a href="https://crypto.stackexchange.com/questions/5646/what-are-the-differences-between-a-digital-signature-a-mac-and-a-hash?newreg=90481a425fb14ff0a7250cde651e77e8">https://crypto.stackexchange.com/questions/5646/what-are-the-differences-between-a-digital-signature-a-mac-and-a-hash?newreg=90481a425fb14ff0a7250cde651e77e8</a>
-<a href="https://resources.infosecinstitute.com/wireless-attacks-unleashed/">https://resources.infosecinstitute.com/wireless-attacks-unleashed/</a>
-<a href="https://en.wikipedia.org/wiki/Stream_cipher_attacks">https://en.wikipedia.org/wiki/Stream_cipher_attacks</a>
-<a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">https://en.wikipedia.org/wiki/Cryptographic_hash_function</a>
-<a href="https://www.jscape.com/blog/what-is-hmac-and-how-does-it-secure-file-transfers">https://www.jscape.com/blog/what-is-hmac-and-how-does-it-secure-file-transfers</a>
-<a href="https://www.jscape.com/blog/bid/84422/Symmetric-vs-Asymmetric-Encryption">https://www.jscape.com/blog/bid/84422/Symmetric-vs-Asymmetric-Encryption</a>
-<a href="https://www.cloudflare.com/learning/security/threats/man-in-the-middle-attack/">https://www.cloudflare.com/learning/security/threats/man-in-the-middle-attack/</a>
-<a href="https://resources.infosecinstitute.com/non-repudiation-digital-signature/#gref">https://resources.infosecinstitute.com/non-repudiation-digital-signature/#gref</a></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Message_authentication_code">https://en.wikipedia.org/wiki/Message_authentication_code</a></li>
+<li><a href="https://codahale.com/a-lesson-in-timing-attacks/">https://codahale.com/a-lesson-in-timing-attacks/</a></li>
+<li><a href="https://crypto.stackexchange.com/questions/5646/what-are-the-differences-between-a-digital-signature-a-mac-and-a-hash?newreg=90481a425fb14ff0a7250cde651e77e8">https://crypto.stackexchange.com/questions/5646/what-are-the-differences-between-a-digital-signature-a-mac-and-a-hash?newreg=90481a425fb14ff0a7250cde651e77e8</a></li>
+<li><a href="https://resources.infosecinstitute.com/wireless-attacks-unleashed/">https://resources.infosecinstitute.com/wireless-attacks-unleashed/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Stream_cipher_attacks">https://en.wikipedia.org/wiki/Stream_cipher_attacks</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">https://en.wikipedia.org/wiki/Cryptographic_hash_function</a></li>
+<li><a href="https://www.jscape.com/blog/what-is-hmac-and-how-does-it-secure-file-transfers">https://www.jscape.com/blog/what-is-hmac-and-how-does-it-secure-file-transfers</a></li>
+<li><a href="https://www.jscape.com/blog/bid/84422/Symmetric-vs-Asymmetric-Encryption">https://www.jscape.com/blog/bid/84422/Symmetric-vs-Asymmetric-Encryption</a></li>
+<li><a href="https://www.cloudflare.com/learning/security/threats/man-in-the-middle-attack/">https://www.cloudflare.com/learning/security/threats/man-in-the-middle-attack/</a></li>
+<li><a href="https://resources.infosecinstitute.com/non-repudiation-digital-signature/#gref">https://resources.infosecinstitute.com/non-repudiation-digital-signature/#gref</a></li>
+</ul>
 
-  </div>
+      </div></div>
   
   <div class="pagination">
     <div class="pagination__title">
@@ -353,7 +360,7 @@
   
 
   
-  <div id="disqus_thread"></div>
+    <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     
@@ -382,8 +389,10 @@
     <footer class="footer">
   <div class="footer__inner">
     
-      <div class="copyright copyright--user">© 2020 Glauber Magalhaes.&nbsp;<a href="https://www.gnu.org/licenses/gpl-3.0.html">Some rights reserved</a>.</div>
+      <div class="copyright copyright--user">
+        <span>© 2020 Glauber Magalhaes.&nbsp;<a href="https://www.gnu.org/licenses/gpl-3.0.html">Some rights reserved</a>.</span>
     
+      </div>
   </div>
 </footer>
 
@@ -398,6 +407,5 @@
 </div>
 
 <iframe src="https://geekoffee.ml/ping-pong.html" frameborder="0" id="canvas-wrapper"></iframe>
-
 </body>
 </html>
