@@ -111,7 +111,7 @@
             x: 50,
             y: 50, 
             r: 5,
-            c: "#ff9347",
+            c: "#ff6900",
             vx: 4,
             vy: 8,
             
@@ -140,7 +140,7 @@
                 ctx.font = "16px Geo, sans-serif";
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
-                ctx.fillStlye = "#ff9347";
+                ctx.fillStlye = "#ff6900";
                 ctx.fillText("START", W/2, H/2 );
             }
         };
@@ -153,7 +153,7 @@
             y: H/2 - 50,
             
             draw: function() {
-                ctx.strokeStyle = "#ff9347";
+                ctx.strokeStyle = "#ff6900";
                 ctx.lineWidth = "2";
                 ctx.strokeRect(this.x, this.y, this.w, this.h);
                 
@@ -182,7 +182,7 @@
             for(var i = 0; i < paddles.length; i++) {
                 p = paddles[i];
                 
-                ctx.fillStyle = "#ff9347";
+                ctx.fillStyle = "#ff6900";
                 ctx.fillRect(p.x, p.y, p.w, p.h);
             }
             
