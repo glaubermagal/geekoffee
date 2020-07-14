@@ -1,5 +1,5 @@
 title = "GeeKoffee"
-baseURL = "https://geekoffee.ml/"
+baseURL = "https://geekoffee.me/"
 languageCode = "en-us"
 theme = "terminal"
 disqusShortname = "geekoffee"
