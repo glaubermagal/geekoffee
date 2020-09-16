@@ -1,5 +1,5 @@
 +++
-title = "Preview alternate template from unpublished theme"
+title = "Preview alternate template from unpublished theme on Shopify"
 date = "2020-09-16"
 author = "Glauber Magalhães"
 cover = ""
