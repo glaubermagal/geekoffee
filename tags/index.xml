@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 Glauber Magalhaes.&amp;nbsp;&lt;a href=&#34;https://www.gnu.org/licenses/gpl-3.0.html&#34;&gt;Some rights reserved&lt;/a&gt;.</copyright>
-    <lastBuildDate>Sat, 29 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://geekoffee.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Shopify Liquid</title>
+      <link>https://geekoffee.me/tags/shopify-liquid/</link>
+      <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://geekoffee.me/tags/shopify-liquid/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tip</title>
+      <link>https://geekoffee.me/tags/tip/</link>
+      <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://geekoffee.me/tags/tip/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>cybersecurity</title>
@@ -36,15 +54,6 @@
       <pubDate>Sat, 22 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>https://geekoffee.me/tags/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tip</title>
-      <link>https://geekoffee.me/tags/tip/</link>
-      <pubDate>Sat, 22 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://geekoffee.me/tags/tip/</guid>
       <description></description>
     </item>
     

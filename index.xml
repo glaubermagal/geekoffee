@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 Glauber Magalhaes.&amp;nbsp;&lt;a href=&#34;https://www.gnu.org/licenses/gpl-3.0.html&#34;&gt;Some rights reserved&lt;/a&gt;.</copyright>
-    <lastBuildDate>Sat, 29 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://geekoffee.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Preview alternate template from unpublished theme</title>
+      <link>https://geekoffee.me/posts/preview-alternate-template-from-unpublished-theme/</link>
+      <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://geekoffee.me/posts/preview-alternate-template-from-unpublished-theme/</guid>
+      <description>When we create a page in Shopify Admin, there is an option to choose a template that will be used to load that page. The problem is that you cannot set this option to use a template for a theme that is not published.
+So how do you load a page using an unpublished theme template? Follow:
+ Create a new page on the Shopify Admin On your unpublished theme, create a template on templates folder, for example: templates/page.</description>
+    </item>
     
     <item>
       <title>Ensuring integrity, authenticity and non-repudiation in data transmission using node.js</title>
