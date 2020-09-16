@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   
-    <title>Ensuring integrity, authenticity and non-repudiation in data transmission using node.js :: GeeKoffee — Programming tips &amp; blog</title>
+    <title>Ensuring integrity, authenticity, and non-repudiation in data transmission using node.js :: GeeKoffee — Programming tips &amp; blog</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<meta name="description" content="Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: the information must be available when it is needed."/>
+<meta name="description" content="Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: is the information available when it is needed?"/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
 <link rel="canonical" href="https://geekoffee.me/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/" />
@@ -28,8 +28,8 @@
 
 
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Ensuring integrity, authenticity and non-repudiation in data transmission using node.js :: GeeKoffee — Programming tips &amp; blog" />
-<meta name="twitter:description" content="Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: the information must be available when it is needed." />
+<meta name="twitter:title" content="Ensuring integrity, authenticity, and non-repudiation in data transmission using node.js :: GeeKoffee — Programming tips &amp; blog" />
+<meta name="twitter:description" content="Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: is the information available when it is needed?" />
 <meta name="twitter:site" content="https://geekoffee.me/" />
 <meta name="twitter:creator" content="Glauber Magalhães" />
 <meta name="twitter:image" content="">
@@ -37,10 +37,10 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="Ensuring integrity, authenticity and non-repudiation in data transmission using node.js :: GeeKoffee — Programming tips &amp; blog">
-<meta property="og:description" content="Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: the information must be available when it is needed." />
+<meta property="og:title" content="Ensuring integrity, authenticity, and non-repudiation in data transmission using node.js :: GeeKoffee — Programming tips &amp; blog">
+<meta property="og:description" content="Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: is the information available when it is needed?" />
 <meta property="og:url" content="https://geekoffee.me/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/" />
-<meta property="og:site_name" content="Ensuring integrity, authenticity and non-repudiation in data transmission using node.js" />
+<meta property="og:site_name" content="Ensuring integrity, authenticity, and non-repudiation in data transmission using node.js" />
 <meta property="og:image" content="">
 <meta property="og:image:width" content="2048">
 <meta property="og:image:height" content="1024">
@@ -191,7 +191,7 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://geekoffee.me/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/">Ensuring integrity, authenticity and non-repudiation in data transmission using node.js</a></h1>
+    <a href="https://geekoffee.me/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/">Ensuring integrity, authenticity, and non-repudiation in data transmission using node.js</a></h1>
   <div class="post-meta">
       
     <span class="post-date">
@@ -220,14 +220,14 @@
   <div class="post-content"><div>
         <h2 id="core-concepts-of-information-security">Core concepts of Information Security<a href="#core-concepts-of-information-security" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <ul>
-<li><strong>Integrity:</strong> can the recipient be confident that the message has not been modified during its lifecycle?</li>
+<li><strong>Integrity:</strong> can the recipient be confident that the message has not been modified during its lifecycle?</li>
 <li><strong>Authentication:</strong> can the recipient be confident that the message was originated from the sender?</li>
 <li><strong>Non-repudiation:</strong> if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender?</li>
-<li><strong>Availability:</strong> the information must be available when it is needed. This concept will not be covered by this article.</li>
+<li><strong>Availability:</strong> is the information available when it is needed? (This concept will not be covered by this article.)</li>
 </ul>
 <p>These concepts are also called Security Goals, when we want to apply them to our systems. We can achieve these goals by using Cryptographic Primitives.</p>
 <p>Cryptographic primitives are well-established, low-level cryptographic algorithms that are frequently used to build cryptographic protocols for computer security systems. These routines include, but are not limited to, one-way hash functions and encryption functions.</p>
-<p>In the table below, we can see the Security Goals that some Cryptographic Primitives can provide. In this article I will be covering examples of HMAC and Digital Signatures.</p>
+<p>In the table below, we can see the Security Goals that some Cryptographic Primitives can provide. In this article, I will be covering examples of HMAC and Digital Signatures.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">    Cryptographic Primitive | Hash |    MAC    | Digital Signature
     Security Goal           |      |           | 
     ------------------------+------+-----------+------------------
@@ -237,39 +237,39 @@
     ------------------------+------+-----------+------------------
     Kind of keys            | none | symmetric | asymmetric
                             |      |    keys   |    keys</code></pre></div>
-<h2 id="definition-of-mac">Definition of MAC<a href="#definition-of-mac" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>A Message authentication Code (MAC) is a short piece of information used to authenticate a message. In other words, it&rsquo;s used to confirm that the message came from an expected sender and has not been changed without your knowledge. The MAC value ensures both the <strong>integrity</strong> and <strong>authenticity</strong> of a message, by regenerating it in the recipient using a shared secret <strong>key (K)</strong>.</p>
+<h2 id="breaking-down-macs">Breaking down MACs<a href="#breaking-down-macs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>A Message Authentication Code (MAC) is a short piece of information used to authenticate a message. In other words, it’s used to confirm that the message came from the expected sender and has not been changed without your knowledge. The MAC value ensures both the <strong>integrity</strong> and <strong>authenticity</strong> of a message, by regenerating it in the recipient using a shared secret <strong>key (K)</strong>.</p>
 <p><img src="/imgs/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/mac.png" alt="MAC"></p>
-<h2 id="definition-of-hmac">Definition of HMAC<a href="#definition-of-hmac" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="from-mac-to-hmac">From MAC to HMAC<a href="#from-mac-to-hmac" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>A <strong>Keyed-Hash Message Authentication Code</strong> (HMAC) is a MAC obtained by running a cryptographic hash function (like MD5, SHA1 or SHA256) over the data and a shared secret key.</p>
 <p>The main difference between MAC and HMAC is that MAC is a tag or a piece of information that helps to authenticate a message, while HMAC is a special type of MAC with a <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">cryptographic hash function</a> and a secret key.</p>
-<p>HMACs are almost similar to digital signatures. Both enforce <strong>integrity</strong> and <strong>authenticity</strong>. Both use cryptographic keys, and both use hash functions. The main difference is that digital signatures use asymmetric keys, while HMACs use symmetric keys.</p>
+<p>HMACs are similar to digital signatures. Both enforce <strong>integrity</strong> and <strong>authenticity</strong>, also both use cryptographic keys and  hash functions. The main difference is that digital signatures use asymmetric keys, while HMACs use symmetric keys.</p>
 <p>HMACs may not enforce <strong>non-repudiation</strong> because the sender and the receiver share the same secret key.</p>
-<h2 id="definition-of-digital-signature">Definition of Digital Signature<a href="#definition-of-digital-signature" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>A digital signature is created with a private key, and verified with the corresponding public key of an asymmetric key-pair. Only the holder of the private key can create this signature.</p>
+<h2 id="whats-a-digital-signature">What&rsquo;s a Digital Signature<a href="#whats-a-digital-signature" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>A digital signature is created with a private key and verified with the corresponding public key of an asymmetric key-pair. Only the holder of the private key can create this signature.</p>
 <p>The public keys are available to everyone. The private key is known only by the owner and can’t be derived from a public key. When something is encrypted with the public key, only the corresponding private key can decrypt it. In addition, when something is encrypted with the private key, then anyone can verify it with the corresponding public key.</p>
-<h2 id="example-of-hmac-sha256-with-nodejs">Example of HMAC-SHA256 with <strong>node.js</strong><a href="#example-of-hmac-sha256-with-nodejs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>Due to some HMAC&rsquo;s properties (especially its cryptographic strength), it&rsquo;s highly dependent on its underlying hash function, a particular HMAC is usually identified based on that hash function. So we have HMAC algorithms that go by the names of HMAC-MD5, HMAC-SHA1, or HMAC-SHA256. This last one is cryptographically stronger than the others, so in this article, I&rsquo;ll provide an example of HMAC using SHA256 algorithm. See it below:</p>
+<h2 id="example-of-hmac-sha256-with-nodejs">Example of HMAC-SHA256 with node.js<a href="#example-of-hmac-sha256-with-nodejs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Due to properties such as cryptographic strength, HMACs are highly dependent on their underlying hash functions, a particular HMAC is usually identified based on that hash function. So we have HMAC algorithms that go by the names of HMAC-MD5, HMAC-SHA1, or HMAC-SHA256. This last one is cryptographically stronger than the others, so in this article, I’ll provide an example of HMAC using the SHA256 algorithm. See it below:</p>
 <h3 id="creating-a-hash-for-the-message">Creating a hash for the message<a href="#creating-a-hash-for-the-message" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <script type="application/javascript" src="https://gist.github.com/glaubermagal/e0a7378c4136a733b5e4e954bafac753.js"></script>
 
 <h3 id="validating-the-message">Validating the message<a href="#validating-the-message" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <script type="application/javascript" src="https://gist.github.com/glaubermagal/ec4bdbbea958d69b49d60b8a9d760a4f.js"></script>
 
-<p>Apparently, just comparing the two hashes as strings would be enough, but you should compare the time of generation of hashes in order to avoid timing attacks. For more information about this sort of issue, see <a href="https://codahale.com/a-lesson-in-timing-attacks/">Coda Hale’s blog post</a> about the timing attacks on KeyCzar and Java’s <code>MessageDigest.isEqual()</code>.</p>
-<p>Suppose that a client is sending a message to a server, but the message or the hash was modified during its transmission, configuring a <a href="https://www.cloudflare.com/learning/security/threats/man-in-the-middle-attack/">man-in-the-middle attack</a>. In this case, the server should detect the possible attack and reject the request.</p>
-<p><strong>Now, let&rsquo;s play!</strong></p>
+<p><strong>Now, let’s play!</strong></p>
 <p>This will generate the HMAC of the <code>body</code> object with the <code>sharedSecret</code>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    npm run get_hmac
     
     // $ HMAC generated: &lt;COPY_THIS_HMAC&gt;</code></pre></div></p>
-<p>This will validate the HMAC provided by the <code>get_hmac</code> method. Try changing the provided HMAC, the <code>body</code> or the <code>sharedSecret</code> and see what happens!
+<p>This will validate the HMAC provided by the get_hmac method. Try changing the provided HMAC, the <code>body</code> or the <code>sharedSecret</code> and see what happens!
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    npm run --hmac<span style="color:#f92672">=</span>&lt;PASTE_THE_HMAC_HERE&gt; validate_hmac
     
     // $ Valid HMAC | Error: ...</code></pre></div></p>
+<p>Although, just comparing the two hashes as strings would be enough, in order to avoid timing attacks you should compare the time that hashes were generated. For more information about this sort of issue, see <a href="https://codahale.com/a-lesson-in-timing-attacks/">Coda Hale’s blog post</a> about the timing attacks on KeyCzar and Java’s <code>MessageDigest.isEqual()</code>.</p>
+<p>Suppose a client is sending a message to a server, but the message or the hash was modified during its transmission, configuring a man-in-the-middle attack. In this case, the server should detect the possible attack and reject the request.</p>
 <p>This code is also available on <a href="https://github.com/glaubermagal/hmac-example">this github repo</a>.</p>
-<h2 id="example-of-digital-signature-with-nodejs">Example of Digital Signature with <strong>node.js</strong><a href="#example-of-digital-signature-with-nodejs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>Digital Signatures work with asymmetric key-pair, one private and others public. In the example below, we will be generating the keys with <a href="https://github.com/openssl/openssl">OpenSSL</a>.</p>
+<h2 id="example-of-digital-signature-with-nodejs">Example of Digital Signature with node.js<a href="#example-of-digital-signature-with-nodejs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Digital Signatures work with asymmetric key-pairs, one private and others public. In the example below, we will be generating the keys with <a href="https://github.com/openssl/openssl">OpenSSL</a>.</p>
 <p>Create a folder for your project and create a <code>/keys</code> folder on its root. After that, generate the key-pair. You can follow some simple examples in the lines below:</p>
 <p><strong>Creating a private key on keys folder</strong>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -pkeyopt rsa_keygen_pubexp:3 -out private_key.pem</code></pre></div></p>
@@ -300,7 +300,7 @@
     With a sigh as it passed on:
     I care not though it perish
     With a thought I then did cherish.</code></pre></div></p>
-<p>The code below is responsible by creating a digital signature from your document using your private key.</p>
+<p>The code below is responsible for creating a digital signature from your document using your private key.</p>
 <h3 id="sign-the-document">Sign the document<a href="#sign-the-document" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <script type="application/javascript" src="https://gist.github.com/glaubermagal/b4bd5ea9d8229fbeb4e55c70ff980308.js"></script>
 
@@ -309,20 +309,20 @@
 <script type="application/javascript" src="https://gist.github.com/glaubermagal/c8f2330ed5176acabbc38dfa832e8db4.js"></script>
 
 <p><strong>Now, let&rsquo;s play!</strong></p>
-<p>This will write the signature of your document in the file signature.txt:
+<p>This will write the signature of your document in the file signature.txt
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    npm run sign
     
     // $ Digital Signature: ...</code></pre></div></p>
-<p>This will verify the signature of your document. Try changing the content of the document or the signature and see what happens:
+<p>This will verify the signature of your document. Try changing the content of the document or the signature and see what happens!
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    npm run verify
     
     // $ Digital Signature Verification: <span style="color:#f92672">(</span>true or false<span style="color:#f92672">)</span></code></pre></div></p>
-<p>You can take a look on these code on <a href="https://github.com/glaubermagal/digital-signature-example">my github repo</a>.</p>
+<p>You can take a look at these codes on <a href="https://github.com/glaubermagal/digital-signature-example">my github repo</a>.</p>
 <h2 id="what-cryptographic-primitive-should-you-use">What Cryptographic Primitive should you use?<a href="#what-cryptographic-primitive-should-you-use" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>This depends on the context. Sometimes you will communicate between only two servers on a private network and there&rsquo;s not the necessity of validating <strong>non-repudiation</strong>, so a simple HMAC validation should be enough. Sometimes your system will be shared by an uncountable number of clients and servers, so in this case you might be interested in enforcing the <strong>non-repudiation,</strong> instead of just sharing the secret key with anyone.</p>
+<p>This depends on the context. Sometimes you will communicate between only two servers on a private network, so a simple HMAC validation might be enough. Sometimes your system will be shared by an unknown number of clients and servers, so in this case, you might be interested in enforcing <strong>non-repudiation</strong>, instead of just sharing the secret key.</p>
 <h2 id="conclusion">Conclusion<a href="#conclusion" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>This is a basic explanation about how to implement some Information Security Goals using some known Cryptographic Primitives using node.js. You should be aware that there are many kinds of advanced attacks that should be prevented by using other security layers and strategies.</p>
-<p>Thanks for reading! :)</p>
+<p>Hopefully, the above explanation will help you implement some Security Information best practices in your systems using node.js. Additionally, you should be aware that there are many kinds of advanced attacks that should be prevented by using other security layers and strategies.</p>
+<p>Keep reading post likes this to stay safe.</p>
 <p><strong>References</strong></p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Message_authentication_code">https://en.wikipedia.org/wiki/Message_authentication_code</a></li>

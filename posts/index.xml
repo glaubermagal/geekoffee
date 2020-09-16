@@ -24,12 +24,12 @@ So how do you load a page using an unpublished theme template? Follow:
     </item>
     
     <item>
-      <title>Ensuring integrity, authenticity and non-repudiation in data transmission using node.js</title>
+      <title>Ensuring integrity, authenticity, and non-repudiation in data transmission using node.js</title>
       <link>https://geekoffee.me/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/</link>
       <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://geekoffee.me/posts/ensuring-integrity-authenticity-and-non-repudiation-in-data-transmission-using-nodejs/</guid>
-      <description>Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: the information must be available when it is needed.</description>
+      <description>Core concepts of Information Security  Integrity: can the recipient be confident that the message has not been modified during its lifecycle? Authentication: can the recipient be confident that the message was originated from the sender? Non-repudiation: if the recipient passes the message and the proof to a third party, can the third party be confident that the message was originated from the sender? Availability: is the information available when it is needed?</description>
     </item>
     
     <item>
