@@ -21,6 +21,7 @@ rm -rf public/*
 echo "Generating site"
 hugo
 cp ping-pong.html public/
+cp 8bit.mp3 public/
 
 echo "Updating gh-pages branch"
 cd public && git add --all && git commit -m "Publishing to gh-pages (publish.sh)"
